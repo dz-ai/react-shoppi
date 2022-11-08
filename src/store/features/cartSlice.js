@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 export const saveCart = createAsyncThunk('cart/saveCart', initCart => {
-    return fetch('http://localhost:3300/carts/save-cart', {
+    return fetch('https://shoppi-shop.herokuapp.com/carts/save-cart', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export const saveCart = createAsyncThunk('cart/saveCart', initCart => {
 });
 
 export const fetchSavedCart = createAsyncThunk('cart/fetchSavedCart', () => {
-    return fetch('http://localhost:3300/carts/saved-Cart', {
+    return fetch('https://shoppi-shop.herokuapp.com/carts/saved-Cart', {
         method: 'get',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const fetchSavedCart = createAsyncThunk('cart/fetchSavedCart', () => {
 });
 
 export const clearSavedCart = createAsyncThunk('cart/clearSavedCart', cartToClear => {
-    return fetch('http://localhost:3300/carts/saved-Cart', {
+    return fetch('https://shoppi-shop.herokuapp.com/carts/saved-Cart', {
         method: 'delete',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const clearSavedCart = createAsyncThunk('cart/clearSavedCart', cartToClea
 });
 
 export const submitOrder = createAsyncThunk('cart/submitOrder', (initOrder ,{ rejectWithValue })=> {
-    return fetch('http://localhost:3300/order/submit-order', {
+    return fetch('https://shoppi-shop.herokuapp.com/order/submit-order', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',

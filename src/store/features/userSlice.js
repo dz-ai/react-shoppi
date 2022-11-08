@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 export const signUser = createAsyncThunk('user/signUser', initUser => {
-    return fetch('http://localhost:3300/users/signIn', {
+    return fetch('https://shoppi-shop.herokuapp.com/users/signIn', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(initUser)
@@ -11,7 +11,7 @@ export const signUser = createAsyncThunk('user/signUser', initUser => {
 });
 
 export const logUser = createAsyncThunk('user/logUser', initUser => {
-    return fetch('http://localhost:3300/users/logIn', {
+    return fetch('https://shoppi-shop.herokuapp.com/users/logIn', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(initUser)
@@ -21,7 +21,7 @@ export const logUser = createAsyncThunk('user/logUser', initUser => {
 });
 
 export const findUser = createAsyncThunk('user/findUser', () => {
-    return fetch('http://localhost:3300/users/find-user', {
+    return fetch('https://shoppi-shop.herokuapp.com/users/find-user', {
         method: 'get',
         headers: {
             'Content-Type': 'application/json',
