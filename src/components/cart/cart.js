@@ -29,7 +29,7 @@ function Cart({cartItems, total}) {
             dispatch(saveCart({cart: cart.cart}));
             dispatch(fetchSavedCart());
         } else {
-            setMessage('pleas login first');
+            setMessage('please login first');
             setShowMessage(true);
         }
     };
@@ -40,7 +40,7 @@ function Cart({cartItems, total}) {
             dispatch(getSavedCart(cartId));
             setShowSavedCarts(false);
         } else {
-            setMessage('pleas save current cart before fetch saved cart');
+            setMessage('please save current cart before fetch saved cart');
             setShowMessage(true);
         }
     };

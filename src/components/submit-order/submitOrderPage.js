@@ -36,9 +36,6 @@ function SubmitOrder() {
 
     useEffect(() => {
         dispatch(setTotalPrice());
-    }, [cart.cart]);
-
-    useEffect(() => {
         dispatch(cartCounter());
     }, [cart.cart]);
 
@@ -46,7 +43,7 @@ function SubmitOrder() {
         <>
             {cart.orderId === 0 && <div className="container container-window">
 
-                {message && <p className="message">pleas check to fill the credit card fields correctly</p>}
+                {message && <p className="message">please check to fill in the credit card fields correctly</p>}
                 {cart.message && <p className="message">{cart.message}</p>}
 
                 <p>{user.username}: You have {cart.itemsCount} {cart.itemsCount > 1 ? 'items' : 'item'} in cart</p>

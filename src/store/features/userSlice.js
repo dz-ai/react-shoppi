@@ -65,14 +65,6 @@ export const userSlice = createSlice({
         });
     },
     reducers: {
-      // isLog (state) {
-      //     if (localStorage.getItem('token')) {
-      //         state.isLog = true;
-      //         state.message = 'login successfully';
-      //     } else {
-      //         state.isLog = false;
-      //     }
-      // },
         logOutUser(state) {
             state.isLog = false;
             state.username = '';
@@ -83,5 +75,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const {isLog, logOutUser} = userSlice.actions;
+export const {logOutUser} = userSlice.actions;
 export default userSlice.reducer;

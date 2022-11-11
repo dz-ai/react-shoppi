@@ -36,15 +36,13 @@ export const productsSlice = createSlice({
     },
     reducers: {
         categoryFilter(state, action) {
-            if (action.payload !== '-select-') {
                 return {...state,
-                    filteredProducts: [...state.products].filter(item => item.category === action.payload)
+                    filteredProducts: [...state.products].filter(item =>
+                        action.payload !== '-select-' ?
+                        item.category === action.payload
+                        :
+                        true)
                 }
-            } else {
-                return {...state,
-                    filteredProducts: [...state.products]
-                }
-            }
         },
     }
 });

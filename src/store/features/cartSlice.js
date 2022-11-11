@@ -38,7 +38,7 @@ export const clearSavedCart = createAsyncThunk('cart/clearSavedCart', cartToClea
         .then(results => results);
 });
 
-export const submitOrder = createAsyncThunk('cart/submitOrder', (initOrder ,{ rejectWithValue })=> {
+export const submitOrder = createAsyncThunk('cart/submitOrder', (initOrder)=> {
     return fetch('https://shoppi-shop.herokuapp.com/order/submit-order', {
         method: 'post',
         headers: {
@@ -83,7 +83,7 @@ export const cartSlice = createSlice({
                 console.log(state.message, state.orderId);
         });
         builder.addCase(submitOrder.rejected, (state, action) => {
-            state.message = 'credit card rejected pleas contact the credit company';
+            state.message = 'credit card rejected please contact the credit company';
         })
     },
     reducers: {

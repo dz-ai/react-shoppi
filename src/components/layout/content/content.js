@@ -4,16 +4,18 @@ import {Route, Routes} from "react-router-dom";
 import LoginPage from "../../login-sign-in/loginPage";
 import SubmitOrder from "../../submit-order/submitOrderPage";
 import {useEffect} from "react";
-import {findUser, isLog} from "../../../store/features/userSlice";
+import {findUser} from "../../../store/features/userSlice";
 import {useDispatch} from "react-redux";
 
 function Content() {
     const dispatch = useDispatch();
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             dispatch(findUser());
         }
     }, []);
+
     return (
         <div className="content container">
             <Routes>
