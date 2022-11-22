@@ -36,7 +36,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         username: '',
-        message: 'pleas fill the form to sign/log in',
+        message: 'please fill the form to sign/log in',
         isLog: false,
     },
     extraReducers(builder) {
@@ -68,7 +68,7 @@ export const userSlice = createSlice({
             state.isLog = false;
             state.username = '';
             localStorage.removeItem('token');
-            state.message = 'pleas fill the form to sign/log in';
+            state.message = 'please fill the form to sign/log in';
             console.log(state.isLog, state.username);
         },
     },

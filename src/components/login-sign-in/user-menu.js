@@ -2,7 +2,6 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {logOutUser} from "../../store/features/userSlice";
 import {useMediaQuery} from "react-responsive";
-import {orderZero} from "../../store/features/cartSlice";
 
 function UserMenu({setShowUser, handleHomeClick}) {
     const isMobile = useMediaQuery({query: '(max-width: 670px)'});
