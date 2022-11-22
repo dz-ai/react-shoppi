@@ -47,7 +47,7 @@ function SubmitOrder() {
                 {cart.message && <p className="message">{cart.message}</p>}
 
                 <p>{user.username}: You have {cart.itemsCount} {cart.itemsCount > 1 ? 'items' : 'item'} in cart</p>
-                <p>Total: {cart.total} $</p>
+                <p>Total: {cart.total.toFixed(2)} $</p>
 
                 <div className="payment-field card-type-select container">
                     <label>credit card: </label>
@@ -72,7 +72,7 @@ function SubmitOrder() {
 
                     <div className="payment-field container">
                         <label>3 Numbers:</label>
-                        <input pattern="[0-9]{3}" value={threeNum} onChange={(event) => setThreeNum(event.target.value)}
+                        <input value={threeNum} onChange={(event) => setThreeNum(event.target.value)}
                                placeholder="3 numbers on back card"/>
                     </div>
 
