@@ -26,7 +26,6 @@ export const productsSlice = createSlice({
             state.loading = false;
             state.products = action.payload;
             state.error = '';
-            state.filteredProducts = state.products;
         });
         builder.addCase(fetchProducts.rejected, (state, action) => {
             state.loading = false;
@@ -37,6 +36,7 @@ export const productsSlice = createSlice({
     reducers: {
         categoryFilter(state, action) {
                 return {...state,
+                    category: action.payload,
                     filteredProducts: [...state.products].filter(item =>
                         action.payload !== '-select-' ?
                         item.category === action.payload

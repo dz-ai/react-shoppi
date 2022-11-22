@@ -5,8 +5,10 @@ import UserMenu from "../../login-sign-in/user-menu";
 import Cart from "../../cart/cart";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 
 function HeaderWideScreen({handelCartButton, handelUserButton, showUser, setShowUser}) {
+    const products = useSelector(state => state.products);
     const cart = useSelector(state => state.cart);
     const username = useSelector(state => state.user.username);
     const isUserLog = (state => state.user.isLog);
@@ -14,12 +16,21 @@ function HeaderWideScreen({handelCartButton, handelUserButton, showUser, setShow
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(categoryFilter(products.category))
+    }, [products.category]);
+
+
+    const handleCategoryChange = (e) => {
+        dispatch(categoryFilter(e.target.value));
+    };
+
     return (
         <>
             <div className="header-content-wrapper container">
                 <nav onClick={() => navigate('/')} className="button navButton">Home</nav>
                 <label htmlFor="category">filter category:</label>
-                <select id="category" onChange={(event) => dispatch(categoryFilter(event.target.value))}>
+                <select value={products.category} id="category" onChange={handleCategoryChange}>
                     <option value={"-select-"}>-select-</option>
                     <option value="electronics">electronics</option>
                     <option value="jewelery">jewelery</option>

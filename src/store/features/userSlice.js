@@ -57,7 +57,6 @@ export const userSlice = createSlice({
         builder.addCase(findUser.fulfilled, (state, action) => {
             state.isLog = action.payload.userLog;
             state.username = action.payload.username;
-            console.log(state.username, state.isLoge);
         });
         builder.addCase(findUser.rejected, (state, action) => {
             state.isLoge = false;
