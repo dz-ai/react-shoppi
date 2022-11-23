@@ -43,11 +43,12 @@ function Login() {
     const handleSubmit = (type) => {
         setSubClicked(true);
         if (type === 'Login') {
-            console.log(type)
             if (validForm.username && validForm.email && validForm.password) {
                 dispatch(logUser({username, email, password}))
             }
-        } else {
+        }
+
+        if (type === 'Sign-in') {
             if (validForm.username && validForm.email && validForm.password) {
                 dispatch(signUser({username, email, password}))
             }
@@ -59,7 +60,7 @@ function Login() {
             navigate('/');
         } else if (!isUserLog && userMessage === 'not signed user please sign in first (or check email spelling)') {
             setPageName('Sign-in');
-        } else if (!isUserLog && userMessage === 'you are signed user please login') {
+        } else if (!isUserLog && userMessage === 'you are a signed user please login') {
             setPageName('Login');
         } else if (location.state.id === '1' && isUserLog) {
             navigate('/submit');
