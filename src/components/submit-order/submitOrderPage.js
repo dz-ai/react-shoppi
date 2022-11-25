@@ -1,7 +1,7 @@
 import './submitOrderPageStyle.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {cartCounter, orderZero, setTotalPrice, submitOrder} from "../../store/features/cartSlice";
+import {cartCounter, orderZero, setTotalPrice, submitOrder} from "../../store/features/slices/cartSlice";
 import {useNavigate} from "react-router-dom";
 
 function SubmitOrder() {

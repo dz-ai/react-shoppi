@@ -1,35 +1,25 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {fetchFun} from "../fetchFun";
+import {signUserThunk} from "../thunks";
 
-export const signUser = createAsyncThunk('user/signUser', initUser => {
-    return fetch('https://shoppi-shop.herokuapp.com/users/signIn', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(initUser)
-    })
-        .then(res => res.json())
-        .then(results => results);
-});
+export const signUser = signUserThunk('user/signUser');
 
 export const logUser = createAsyncThunk('user/logUser', initUser => {
-    return fetch('https://shoppi-shop.herokuapp.com/users/logIn', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(initUser)
-    })
-        .then(res => res.json())
-        .then(results => results);
+    return fetchFun(
+        '/users/logIn',
+         'post',
+        {'Content-Type': 'application/json'},
+        initUser);
 });
 
 export const findUser = createAsyncThunk('user/findUser', () => {
-    return fetch('https://shoppi-shop.herokuapp.com/users/find-user', {
-        method: 'get',
-        headers: {
+    return fetchFun(
+        '/users/find-user',
+        'get',
+        {
             'Content-Type': 'application/json',
             'auth': `Bearer ${localStorage.getItem('token')}`,
-        },
-    })
-        .then(res => res.json())
-        .then(results => results);
+    });
 });
 
 export const userSlice = createSlice({

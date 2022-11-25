@@ -3,7 +3,7 @@ import {GrClose} from "react-icons/gr";
 import { AiOutlinePlus} from "react-icons/ai";
 import {AiOutlineMinus} from "react-icons/ai";
 import {useDispatch} from "react-redux";
-import {removeFromCart, addToCart} from "../../store/features/cartSlice";
+import {removeFromCart, addToCart} from "../../store/features/slices/cartSlice";
 
 function CartItem({item, cartItem}) {
 // item content all that related to this specific item (quantity and item'sTotal) and cartItem give all general info

@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {logOutUser} from "../../store/features/userSlice";
+import {logOutUser} from "../../store/features/slices/userSlice";
 import {useMediaQuery} from "react-responsive";
 
 function UserMenu({setShowUser, handleHomeClick}) {

@@ -8,7 +8,7 @@ import {
     getSavedCart,
     saveCart,
     showCart
-} from "../../store/features/cartSlice";
+} from "../../store/features/slices/cartSlice";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import SavedCartMenu from "./savedCartMenu";

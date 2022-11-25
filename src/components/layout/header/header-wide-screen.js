@@ -1,4 +1,4 @@
-import {categoryFilter} from "../../../store/features/productsSlice";
+import {categoryFilter} from "../../../store/features/slices/productsSlice";
 import {MdOutlineShoppingCart} from "react-icons/md";
 import {BiUser} from "react-icons/bi";
 import UserMenu from "../../login-sign-in/user-menu";

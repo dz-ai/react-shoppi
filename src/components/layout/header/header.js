@@ -6,7 +6,7 @@ import {
     orderZero,
     setTotalPrice,
     showCart
-} from "../../../store/features/cartSlice";
+} from "../../../store/features/slices/cartSlice";
 import {useEffect, useState} from "react";
 import HeaderWideScreen from "./header-wide-screen";
 import {useMediaQuery} from "react-responsive";

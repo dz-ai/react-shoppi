@@ -1,7 +1,9 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
+const apiUrl = 'https://shoppi-api.onrender.com';
+
 export const saveCart = createAsyncThunk('cart/saveCart', initCart => {
-    return fetch('https://shoppi-shop.herokuapp.com/carts/save-cart', {
+    return fetch(`${apiUrl}/carts/save-cart`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -14,7 +16,7 @@ export const saveCart = createAsyncThunk('cart/saveCart', initCart => {
 });
 
 export const fetchSavedCart = createAsyncThunk('cart/fetchSavedCart', () => {
-    return fetch('https://shoppi-shop.herokuapp.com/carts/saved-Cart', {
+    return fetch(`${apiUrl}/carts/saved-Cart`, {
         method: 'get',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +28,7 @@ export const fetchSavedCart = createAsyncThunk('cart/fetchSavedCart', () => {
 });
 
 export const clearSavedCart = createAsyncThunk('cart/clearSavedCart', cartToClear => {
-    return fetch('https://shoppi-shop.herokuapp.com/carts/saved-Cart', {
+    return fetch(`${apiUrl}/carts/saved-Cart`, {
         method: 'delete',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +41,7 @@ export const clearSavedCart = createAsyncThunk('cart/clearSavedCart', cartToClea
 });
 
 export const submitOrder = createAsyncThunk('cart/submitOrder', (initOrder)=> {
-    return fetch('https://shoppi-shop.herokuapp.com/order/submit-order', {
+    return fetch(`${apiUrl}/order/submit-order`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',

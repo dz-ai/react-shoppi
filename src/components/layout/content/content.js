@@ -4,7 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import LoginPage from "../../login-sign-in/loginPage";
 import SubmitOrder from "../../submit-order/submitOrderPage";
 import {useEffect} from "react";
-import {findUser} from "../../../store/features/userSlice";
+import {findUser} from "../../../store/features/slices/userSlice";
 import {useDispatch} from "react-redux";
 
 function Content() {

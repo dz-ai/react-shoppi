@@ -2,7 +2,7 @@ import './productsStyles/productsStyle.css';
 import Product from "./product";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {categoryFilter, fetchProducts} from "../../store/features/productsSlice";
+import {categoryFilter, fetchProducts} from "../../store/features/slices/productsSlice";
 
 function Products() {
     const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import {MdOutlineShoppingCart} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
 import Cart from "../../cart/cart";
 import UserMenu from "../../login-sign-in/user-menu";
-import {categoryFilter} from "../../../store/features/productsSlice";
+import {categoryFilter} from "../../../store/features/slices/productsSlice";
 import {useNavigate} from "react-router-dom";
 
 
