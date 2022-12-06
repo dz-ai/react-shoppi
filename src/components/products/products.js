@@ -7,13 +7,12 @@ import {useProductsActions} from "../../store/features/productsSlice/actionsInde
 function Products() {
     const productsState = useSelector(state => state.products);
 
-    const {categoryFilter, fetchProducts} = useProductsActions();
+    const {fetchProducts} = useProductsActions();
 
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
         fetchProducts();
-        categoryFilter(products.category || '-select-');
     }, []);
 
     useEffect(() => {

@@ -8,9 +8,9 @@ import {useUserActions} from "../../store/features/userSlice/actionsIndex";
 // This component serve as login and sign-in depend on which pageName it receives
 function Login() {
     const location = useLocation();
+    const navigate = useNavigate();
     const userMessage = useSelector(state => state.user.message);
     const isUserLog = useSelector(state => state.user.isLog);
-    const navigate = useNavigate();
 
     const {signUser, logUser, logOutUser} = useUserActions();
 
@@ -25,20 +25,6 @@ function Login() {
         username: username.length > 3,
         email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
         password: /^\w{6,10}$/.test(password),
-    };
-
-    const handleChange = (event, type) => {
-        const value = event.target.value;
-        switch (type) {
-            case 'text':
-                setUsername(value);
-                break
-            case 'email':
-                setEmail(value);
-                break
-            case 'password':
-                setPassword(value);
-        }
     };
 
     const handleSubmit = (type) => {
@@ -80,16 +66,17 @@ function Login() {
                     <h1>{pageName}</h1>
                     <input type="text"
                            placeholder="3 letters username"
-                           onChange={(event) => handleChange(event, 'text')}
+                           onChange={(event) => setUsername(event.target.value)}
                            value={username}/>
                     <input type="email"
                            placeholder="email"
-                           onChange={(event) => handleChange(event, 'email')}
+                           onChange={(event) => setEmail(event.target.value)}
                            value={email}/>
                     <input type="password"
                            placeholder="password"
-                           onChange={(event) => handleChange(event, 'password')}
+                           onChange={(event) => setPassword(event.target.value)}
                            value={password}/>
+
                     <button className="button"
                             onClick={() => handleSubmit(pageName)}>
                         {pageName}
