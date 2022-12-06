@@ -1,12 +1,12 @@
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {logOutUser} from "../../store/features/slices/userSlice";
 import {useMediaQuery} from "react-responsive";
+import {useUserActions} from "../../store/features/userSlice/actionsIndex";
 
 function UserMenu({setShowUser, handleHomeClick}) {
     const isMobile = useMediaQuery({query: '(max-width: 670px)'});
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
+    const {logOutUser} = useUserActions();
 
     const handelClick = (type) => {
 
@@ -20,7 +20,7 @@ function UserMenu({setShowUser, handleHomeClick}) {
                 navigate('/login', {state: {name: 'Sign-in'}});
                 break
             case 'logout':
-                dispatch(logOutUser());
+                logOutUser();
                 navigate('/');
         }
     };

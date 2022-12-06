@@ -1,14 +1,15 @@
 import './submitOrderPageStyle.css'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {cartCounter, orderZero, setTotalPrice, submitOrder} from "../../store/features/slices/cartSlice";
 import {useNavigate} from "react-router-dom";
+import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
 
 function SubmitOrder() {
-    const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.user);
     const navigate = useNavigate();
+
+    const {orderZero, setTotalPrice, cartCounter, submitOrder} = useCartActions();
 
     const [cardType, setCardType] = useState('visa');
     const [cardNum, setCardNum] = useState('');
@@ -23,20 +24,20 @@ function SubmitOrder() {
     }
     const handelSubmit = () => {
         if (validCard.cardNum && validCard.exDate && validCard.threeNum) {
-            dispatch(submitOrder({products: cart.cart, total: cart.total, creditCard:{cardType, cardNum, exDate, threeNum}}));
+            submitOrder({products: cart.cart, total: cart.total, creditCard:{cardType, cardNum, exDate, threeNum}});
         } else {
             setMessage(true)
         }
     };
 
     const handelContinueShopping = () => {
-      dispatch(orderZero('all'));
+      orderZero('all');
       navigate('/');
     };
 
     useEffect(() => {
-        dispatch(setTotalPrice());
-        dispatch(cartCounter());
+        setTotalPrice();
+        cartCounter();
     }, [cart.cart]);
 
     return (

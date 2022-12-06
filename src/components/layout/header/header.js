@@ -1,22 +1,18 @@
 import './headerStyles/headerStyle.css';
-import {useDispatch, useSelector} from "react-redux";
-import {
-    cartCounter,
-    fetchSavedCart,
-    orderZero,
-    setTotalPrice,
-    showCart
-} from "../../../store/features/slices/cartSlice";
+import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import HeaderWideScreen from "./header-wide-screen";
 import {useMediaQuery} from "react-responsive";
 import HeaderMobileScreen from "./header-mobile-screen";
+import {useCartActions} from "../../../store/features/cartSlice/actionsIndex";
 
 function Header() {
     const isMobile = useMediaQuery({query: '(max-width: 670px)'});
-    const dispatch = useDispatch();
+
     const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.user);
+
+    const {fetchSavedCart, orderZero, setTotalPrice, cartCounter, showCartFun} = useCartActions();
 
     const [showUser, setShowUser] = useState(false);
     const [showBurgerMenu, setShowBurgerMenu] = useState(false);
@@ -24,21 +20,21 @@ function Header() {
 
     useEffect(() => {
         if (user.isLog) {
-            dispatch(fetchSavedCart());
+            fetchSavedCart();
         } else {
-            dispatch(orderZero())
+            orderZero();
         }
     }, [user.isLog])
 
     useEffect(() => {
-        dispatch(setTotalPrice());
-        dispatch(cartCounter());
+        setTotalPrice();
+        cartCounter();
     }, [cart.cart]);
 
     const handelUserButton = () => {
         if (cart.showCart) {
             setShowUser(!showUser);
-            dispatch(showCart());
+            showCartFun();
         } else {
             setShowUser(!showUser);
         }
@@ -46,14 +42,14 @@ function Header() {
 
     const handelCartButton = () => {
         if (cart.savedCarts.length > 0) {
-            dispatch(showCart());
+            showCartFun();
             return
         }
         if (cart.cart.length !== 0 && showUser) {
             setShowUser(false);
-            dispatch(showCart());
+            showCartFun();
         } else {
-            dispatch(showCart());
+            showCartFun();
         }
     };
 

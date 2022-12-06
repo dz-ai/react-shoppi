@@ -1,24 +1,19 @@
 import './cartStyles/cartStyle.css';
 import CartItem from "./cart-item";
 import {GrClose} from "react-icons/gr";
-import {useDispatch, useSelector} from "react-redux";
-import {
-    clearSavedCart,
-    fetchSavedCart,
-    getSavedCart,
-    saveCart,
-    showCart
-} from "../../store/features/slices/cartSlice";
+import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import SavedCartMenu from "./savedCartMenu";
+import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
 
 function Cart({cartItems, total}) {
     const products = useSelector(state => state.products.products);
     const isUserLog = useSelector(state => state.user.isLog);
     const cart = useSelector(state => state.cart);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    // actions
+    const {getSavedCart, saveCart, fetchSavedCart, clearSavedCart, showCartFun} = useCartActions();
 
     const [showSavedCarts, setShowSavedCarts] = useState(false);
     const [message, setMessage] = useState('');
@@ -26,8 +21,8 @@ function Cart({cartItems, total}) {
 
     const handelSaveCart = () => {
         if (isUserLog) {
-            dispatch(saveCart({cart: cart.cart}));
-            dispatch(fetchSavedCart());
+            saveCart({cart: cart.cart});
+            fetchSavedCart();
         } else {
             setMessage('please login first');
             setShowMessage(true);
@@ -36,8 +31,8 @@ function Cart({cartItems, total}) {
 
     const handleSavedCartClick = (cartId) => {
         if (cart.cart.length === 0) {
-            dispatch(clearSavedCart(cartId));
-            dispatch(getSavedCart(cartId));
+            clearSavedCart(cartId);
+            getSavedCart(cartId);
             setShowSavedCarts(false);
         } else {
             setMessage('please save current cart before fetch saved cart');
@@ -46,16 +41,16 @@ function Cart({cartItems, total}) {
     };
 
     const handleClearSavedCart = (cartId) => {
-        dispatch(clearSavedCart(cartId));
+        clearSavedCart(cartId);
     };
 
     const handelSubmit = () => {
         if (isUserLog) {
             navigate('/submit')
-            dispatch(showCart());
+            showCartFun();
         } else {
             navigate('/login', {state: {name: 'Sign-in', id: '1'}});
-            dispatch(showCart());
+            showCartFun();
         }
     };
 
@@ -77,7 +72,7 @@ function Cart({cartItems, total}) {
                         {showSavedCarts ? 'current cart' : 'saved cart'}
                     </button>
                 </div>
-                <button className="icon-button" onClick={() => dispatch(showCart())}>
+                <button className="icon-button" onClick={() => showCartFun()}>
                     <GrClose/>
                 </button>
             </header>

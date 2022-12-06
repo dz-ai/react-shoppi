@@ -1,11 +1,11 @@
-import {categoryFilter} from "../../../store/features/slices/productsSlice";
 import {MdOutlineShoppingCart} from "react-icons/md";
 import {BiUser} from "react-icons/bi";
 import UserMenu from "../../login-sign-in/user-menu";
 import Cart from "../../cart/cart";
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {useProductsActions} from "../../../store/features/productsSlice/actionsIndex";
 
 function HeaderWideScreen({handelCartButton, handelUserButton, showUser, setShowUser}) {
     const products = useSelector(state => state.products);
@@ -14,15 +14,15 @@ function HeaderWideScreen({handelCartButton, handelUserButton, showUser, setShow
     const isUserLog = (state => state.user.isLog);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const {categoryFilter} = useProductsActions();
 
     useEffect(() => {
-        dispatch(categoryFilter(products.category))
+        categoryFilter(products.category);
     }, [products.category]);
 
 
     const handleCategoryChange = (e) => {
-        dispatch(categoryFilter(e.target.value));
+        categoryFilter(e.target.value);
     };
 
     return (

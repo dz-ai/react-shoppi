@@ -1,10 +1,9 @@
 import './productsStyles/productStyle.css';
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {addToCart} from "../../store/features/slices/cartSlice";
+import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
 
 function Product({item}) {
-    const dispatch = useDispatch();
+    const {addToCart} = useCartActions();
 
     const {id, image, category, title, description, price} = item;
     const [readMore, setReadMore] = useState(false);
@@ -22,7 +21,7 @@ function Product({item}) {
             </p>
 
             <button className="button"
-                    onClick={() => dispatch(addToCart({id, quantity: 1, price, itemsTotal: price}))}>
+                    onClick={() => addToCart({id, quantity: 1, price, itemsTotal: price})}>
                     {`Buy ${price} $`}
             </button>
         </div>

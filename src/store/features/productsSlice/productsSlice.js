@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', () => {
-    return fetch('https://fakestoreapi.com/products')
+    return fetch('https://shoppi-api.onrender.com/products/fetch-products')
         .then(res => res.json())
         .then(results => results);
 });

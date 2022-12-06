@@ -1,18 +1,19 @@
 import './productsStyles/productsStyle.css';
 import Product from "./product";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {categoryFilter, fetchProducts} from "../../store/features/slices/productsSlice";
+import {useSelector} from "react-redux";
+import {useProductsActions} from "../../store/features/productsSlice/actionsIndex";
 
 function Products() {
-    const dispatch = useDispatch();
     const productsState = useSelector(state => state.products);
+
+    const {categoryFilter, fetchProducts} = useProductsActions();
 
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        dispatch(fetchProducts());
-        dispatch(categoryFilter(products.category || '-select-'));
+        fetchProducts();
+        categoryFilter(products.category || '-select-');
     }, []);
 
     useEffect(() => {

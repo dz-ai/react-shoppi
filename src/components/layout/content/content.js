@@ -4,15 +4,14 @@ import {Route, Routes} from "react-router-dom";
 import LoginPage from "../../login-sign-in/loginPage";
 import SubmitOrder from "../../submit-order/submitOrderPage";
 import {useEffect} from "react";
-import {findUser} from "../../../store/features/slices/userSlice";
-import {useDispatch} from "react-redux";
+import {useUserActions} from "../../../store/features/userSlice/actionsIndex";
 
 function Content() {
-    const dispatch = useDispatch();
+    const {findUser} = useUserActions();
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            dispatch(findUser());
+            findUser();
         }
     }, []);
 

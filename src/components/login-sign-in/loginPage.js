@@ -1,17 +1,18 @@
 import './loginPageStyle.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {logOutUser, logUser, signUser} from "../../store/features/slices/userSlice";
+import {useSelector} from "react-redux";
 import {handleKeypress} from "../../utils/pressEnterHandle";
+import {useUserActions} from "../../store/features/userSlice/actionsIndex";
 
 // This component serve as login and sign-in depend on which pageName it receives
 function Login() {
     const location = useLocation();
     const userMessage = useSelector(state => state.user.message);
     const isUserLog = useSelector(state => state.user.isLog);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const {signUser, logUser, logOutUser} = useUserActions();
 
     const [pageName, setPageName] = useState(location.state.name);
     const [username, setUsername] = useState('');
@@ -44,13 +45,13 @@ function Login() {
         setSubClicked(true);
         if (type === 'Login') {
             if (validForm.username && validForm.email && validForm.password) {
-                dispatch(logUser({username, email, password}))
+                logUser({username, email, password});
             }
         }
 
         if (type === 'Sign-in') {
             if (validForm.username && validForm.email && validForm.password) {
-                dispatch(signUser({username, email, password}))
+                signUser({username, email, password});
             }
         }
     };
@@ -98,7 +99,7 @@ function Login() {
                 <div className="container login">
                     <h3>{userMessage}</h3>
                     <button className="button"
-                            onClick={() => dispatch(logOutUser())}>Logout
+                            onClick={() => logOutUser()}>Logout
                     </button>
                 </div>
             }

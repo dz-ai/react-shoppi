@@ -1,22 +1,22 @@
 import './headerStyles/headerMobileStyle.css';
 import {BiMenu} from "react-icons/bi";
 import {MdOutlineShoppingCart} from "react-icons/md";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Cart from "../../cart/cart";
 import UserMenu from "../../login-sign-in/user-menu";
-import {categoryFilter} from "../../../store/features/slices/productsSlice";
 import {useNavigate} from "react-router-dom";
+import {useProductsActions} from "../../../store/features/productsSlice/actionsIndex";
 
 
 function HeaderMobileScreen(
     {handelCartButton, showBurgerMenu, setShowBurgerMenu, setShowUser, showUser, showFilter, setShowFilter}) {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const cart = useSelector(state => state.cart);
     const username = useSelector(state => state.user.username);
     const isUserLog = (state => state.user.isLog);
 
+    const {categoryFilter} = useProductsActions();
     const handleHomeClick = (type) => {
             setShowBurgerMenu(false);
             type === 'home' && navigate('/');
@@ -25,7 +25,7 @@ function HeaderMobileScreen(
     const handleChange = (event) => {
         setShowBurgerMenu(false);
         setShowFilter(false);
-        dispatch(categoryFilter(event.target.value));
+        categoryFilter(event.target.value);
     };
 
     return (
