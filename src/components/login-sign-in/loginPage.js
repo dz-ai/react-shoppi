@@ -79,7 +79,7 @@ function Login() {
                     <p className="message">{userMessage}</p>
                     <h1>{pageName}</h1>
                     <input type="text"
-                           placeholder="username"
+                           placeholder="3 letters username"
                            onChange={(event) => handleChange(event, 'text')}
                            value={username}/>
                     <input type="email"
