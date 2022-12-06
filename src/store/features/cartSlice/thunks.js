@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {fetchFun} from "../api-utiles/fetchFun";
+import {fetchFun} from "../fetchFun";
 
 
 export const saveCartThunk = (typePrefix) =>

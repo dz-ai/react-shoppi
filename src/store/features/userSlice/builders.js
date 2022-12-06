@@ -22,6 +22,7 @@ export const findUserBuilder = (builder) => {
     builder.addCase(findUser.fulfilled, (state, action) => {
         state.isLog = action.payload.userLog;
         state.username = action.payload.username;
+        state.message = action.payload.message;
     });
     builder.addCase(findUser.rejected, (state, action) => {
         state.isLoge = false;
