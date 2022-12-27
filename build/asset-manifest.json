@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.eabd03c1.css",
+    "main.js": "/static/js/main.d191828d.js",
+    "static/media/brick-wall-gca4e1fcb7_1920.jpg": "/static/media/brick-wall-gca4e1fcb7_1920.adb2d90292f9f5e707ad.jpg",
+    "index.html": "/index.html",
+    "main.eabd03c1.css.map": "/static/css/main.eabd03c1.css.map",
+    "main.d191828d.js.map": "/static/js/main.d191828d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.eabd03c1.css",
+    "static/js/main.d191828d.js"
+  ]
+}
