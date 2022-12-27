@@ -3,9 +3,11 @@ import {findUser, logUser, signUser} from "./userSlice";
 export const signUserBuilder = (builder) => {
     builder.addCase(signUser.fulfilled, (state, action) => {
         state.isLog = action.payload.isSign;
-        state.username = action.payload.username;
         state.message = action.payload.message;
-        action.payload.token && localStorage.setItem('token', action.payload.token);
+        if (action.payload.token) {
+            localStorage.setItem('token', action.payload.token);
+            state.username = action.payload.username;
+        }
     });
 }
 

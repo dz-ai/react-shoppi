@@ -27,7 +27,6 @@ export const submitOrderBuilder = (builder) => {
         state.message = action.payload.message;
         state.orderId = action.payload.orderId;
         state.cart = [];
-        console.log(state.message, state.orderId);
     });
     builder.addCase(submitOrder.rejected, (state, action) => {
         state.message = 'credit card rejected please contact the credit company';

@@ -4,8 +4,8 @@ import {findUserBuilder, logUserBuilder, signUserBuilder} from "./builders";
 
 const initialState = {
     username: '',
-        message: 'please fill the form to sign/log in',
-        isLog: false,
+    message: 'please fill the form to sign/log in',
+    isLog: false,
 }
 
 export const signUser = signUserThunk('user/signUser');

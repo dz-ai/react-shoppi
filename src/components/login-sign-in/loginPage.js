@@ -14,7 +14,7 @@ function Login() {
 
     const {signUser, logUser, logOutUser} = useUserActions();
 
-    const [pageName, setPageName] = useState(location.state.name);
+    const [pageName, setPageName] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,22 +41,32 @@ function Login() {
             }
         }
     };
+    useEffect(() => {
+        let namePage;
+        if (!location.state) {
+            namePage = 'Sign-in';
+        } else {
+            namePage = location.state.name
+        }
+        setPageName(namePage)
+    }, [location.state && location.state.name]);
+
     //useEffect navigate to home page when isUserLoge and subClicked is true
     useEffect(() => {
-        if (isUserLog && subClicked && location.state.id !== '1') {
+        if (isUserLog && subClicked && location.state && location.state.id !== '1') {
             navigate('/');
-        } else if (!isUserLog && userMessage === 'not signed user please sign in first (or check email spelling)') {
+        }
+        if (!isUserLog && userMessage === 'not a signed user please sign in first (or check email spelling)') {
             setPageName('Sign-in');
-        } else if (!isUserLog && userMessage === 'you are a signed user please login') {
+        }
+        if (!isUserLog && userMessage === 'you are a signed user please login') {
             setPageName('Login');
-        } else if (location.state.id === '1' && isUserLog) {
+        }
+        if (location.state && location.state.id === '1' && isUserLog) {
             navigate('/submit');
         }
     }, [isUserLog, subClicked, userMessage]);
 
-    useEffect(() => {
-        setPageName(location.state.name)
-    }, [location.state.name]);
 
     return (
         <div onKeyDown={(e) => handleKeypress(e, handleSubmit, pageName)}>
