@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import {apiUrl} from "../fetchFun";
 
 const initialState = {
     loading: false,
@@ -10,7 +11,7 @@ const initialState = {
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', () => {
-    return fetch('https://fakestoreapi.com/products')
+    return fetch(`/${apiUrl}products/fetch-products`)
         .then(res => res.json())
         .then(results => results);
 });
