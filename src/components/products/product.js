@@ -10,6 +10,7 @@ function Product({item}) {
 
     return (
         <div className="product round container">
+
             <img src={image} alt="catalog-item" width="80%" height="auto" loading="lazy"/>
             <p>{category}</p>
             <h2>{title}</h2>

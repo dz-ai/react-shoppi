@@ -4,8 +4,9 @@ import UserMenu from "../../login-sign-in/user-menu";
 import Cart from "../../cart/cart";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useProductsActions} from "../../../store/features/productsSlice/actionsIndex";
+import Dropdown from "./dropdown";
 
 function HeaderWideScreen({handelCartButton, handelUserButton, showUser, setShowUser}) {
     const products = useSelector(state => state.products);
@@ -16,28 +17,28 @@ function HeaderWideScreen({handelCartButton, handelUserButton, showUser, setShow
     const navigate = useNavigate();
     const {categoryFilter} = useProductsActions();
 
+    const options = ["Select Category", "electronics", "jewelery", "men's clothing", "women's clothing"]
+    const [categoryValue, setCategoryValue] = useState(options[0]);
+
     useEffect(() => {
         categoryFilter(products.category);
     }, [products.category]);
 
-
-    const handleCategoryChange = (e) => {
-        categoryFilter(e.target.value);
-    };
+    useEffect(() => {
+        categoryFilter(categoryValue);
+    }, [categoryValue]);
 
     return (
         <>
             <div className="header-content-wrapper container">
                 <nav onClick={() => navigate('/')} className="button navButton">Home</nav>
-                <label htmlFor="category">filter category:</label>
-                <select value={products.category} id="category" onChange={handleCategoryChange}>
-                    <option value={"-select-"}>-select-</option>
-                    <option value="electronics">electronics</option>
-                    <option value="jewelery">jewelery</option>
-                    <option value="men's clothing">men's clothing</option>
-                    <option value="women's clothing">women's clothing</option>
-                </select>
-
+                <div style={{width: "200px", marginLeft: "5px"}}>
+                    <Dropdown
+                        options={options}
+                        categoryValue={categoryValue}
+                        setCategoryValue={setCategoryValue}
+                    />
+                </div>
                 <button onClick={handelCartButton}
                         className="icon-button cart-toggle">
                     {cart.cart.length > 0 && <div className="cart-counter round">{cart.itemsCount}</div>}

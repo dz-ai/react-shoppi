@@ -6,6 +6,8 @@ import Cart from "../../cart/cart";
 import UserMenu from "../../login-sign-in/user-menu";
 import {useNavigate} from "react-router-dom";
 import {useProductsActions} from "../../../store/features/productsSlice/actionsIndex";
+import Dropdown from "./dropdown";
+import {useEffect, useState} from "react";
 
 
 function HeaderMobileScreen(
@@ -16,17 +18,21 @@ function HeaderMobileScreen(
     const username = useSelector(state => state.user.username);
     const isUserLog = (state => state.user.isLog);
 
+    const options = ["Select Category", "electronics", "jewelery", "men's clothing", "women's clothing"]
+    const [categoryValue, setCategoryValue] = useState(options[0]);
+
     const {categoryFilter} = useProductsActions();
+
     const handleHomeClick = (type) => {
             setShowBurgerMenu(false);
             type === 'home' && navigate('/');
     };
 
-    const handleChange = (event) => {
+    useEffect(() => {
         setShowBurgerMenu(false);
         setShowFilter(false);
-        categoryFilter(event.target.value);
-    };
+        categoryFilter(categoryValue);
+    }, [categoryValue]);
 
     return (
         <>
@@ -60,23 +66,13 @@ function HeaderMobileScreen(
                         Home
                     </button>
                     <hr/>
-
-                    <button className="menu-button"
-                            onClick={() => setShowFilter(!showFilter)}>
-                        Filter Category
-                    </button>
+                            <Dropdown
+                                options={options}
+                                categoryValue={categoryValue}
+                                setCategoryValue={setCategoryValue}
+                            />
                     <hr/>
-                    {showFilter &&
-                        <div className="small-menu mobile-category">
-                            <select onChange={(event) => handleChange(event)}>
-                                <option value={"-select-"}>-select-</option>
-                                <option value="electronics">electronics</option>
-                                <option value="jewelery">jewelery</option>
-                                <option value="men's clothing">men's clothing</option>
-                                <option value="women's clothing">women's clothing</option>
-                            </select>
-                        </div>
-                    }
+
                     <button className="menu-button"
                             onClick={() => setShowUser(!showUser)}>
                         Login/Logout
