@@ -11,7 +11,7 @@ import {useEffect, useState} from "react";
 
 
 function HeaderMobileScreen(
-    {handelCartButton, showBurgerMenu, setShowBurgerMenu, setShowUser, showUser, showFilter, setShowFilter}) {
+    {handelCartButton, showBurgerMenu, setShowBurgerMenu, setShowUser, showUser, setShowFilter}) {
 
     const navigate = useNavigate();
     const cart = useSelector(state => state.cart);
