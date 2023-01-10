@@ -16,6 +16,11 @@
     font-size: unset;
 }
 
+.product p {
+    width: 200px;
+    overflow-wrap: break-word;
+}
+
 .read-more {
     color: #1635a9;
     font-size: 15px;
@@ -40,6 +45,10 @@
         max-height: 150px;
         width: auto;
         max-width: 200px;
+    }
+
+    .product p {
+        font-size: small;
     }
 }
 

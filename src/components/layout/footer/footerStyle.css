@@ -1,5 +1,7 @@
 .footer {
-    background: rgb(29 33 34 / 98%);
-    height: 50px;
+    background: rgb(24 37 38 / 73%);
+    height: fit-content;
     color: white;
+    text-align: center;
+    padding: 10px;
 }
