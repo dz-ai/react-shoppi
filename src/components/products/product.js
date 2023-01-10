@@ -8,10 +8,12 @@ function Product({item}) {
     const {id, image, category, title, description, price} = item;
     const [readMore, setReadMore] = useState(false);
 
+    const newImage = image.replace("***", process.env.REACT_APP_IMAGEKIT_KEY);
+
     return (
         <div className="product round container">
 
-            <img src={image} alt="catalog-item" width="80%" height="auto" loading="lazy"/>
+            <img src={newImage} alt="catalog-item" width="80%" height="auto" loading="lazy"/>
             <p>{category}</p>
             <h2>{title}</h2>
 
