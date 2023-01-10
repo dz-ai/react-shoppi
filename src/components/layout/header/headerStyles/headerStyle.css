@@ -1,7 +1,7 @@
 .header {
     background: #7d4441;
     color: white;
-    box-shadow: 0 0 0 black;
+    box-shadow: 0px 6px 11px 2px black;
     height: 50px;
     flex-direction: row;
     justify-content: space-between;

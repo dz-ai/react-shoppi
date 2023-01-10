@@ -1,6 +1,8 @@
 import './productsStyles/productStyle.css';
+import './productsStyles/masonryStyles.css';
 import {useState} from "react";
 import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
+import ImagePlaceHolder from "../imagePlaceHolder";
 
 function Product({item}) {
     const {addToCart} = useCartActions();
@@ -8,12 +10,12 @@ function Product({item}) {
     const {id, image, category, title, description, price} = item;
     const [readMore, setReadMore] = useState(false);
 
-    const newImage = image.replace("***", process.env.REACT_APP_IMAGEKIT_KEY);
 
     return (
         <div className="product round container">
 
-            <img src={newImage} alt="catalog-item" width="80%" height="auto" loading="lazy"/>
+                <ImagePlaceHolder imageUrl={image} alt={title}/>
+
             <p>{category}</p>
             <h2>{title}</h2>
 
@@ -25,7 +27,7 @@ function Product({item}) {
 
             <button className="button"
                     onClick={() => addToCart({id, quantity: 1, price, itemsTotal: price})}>
-                    {`Buy ${price} $`}
+                {`Buy ${price} $`}
             </button>
         </div>
     );

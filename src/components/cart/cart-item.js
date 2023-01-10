@@ -3,6 +3,7 @@ import {GrClose} from "react-icons/gr";
 import { AiOutlinePlus} from "react-icons/ai";
 import {AiOutlineMinus} from "react-icons/ai";
 import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
+import ImagePlaceHolder from "../imagePlaceHolder";
 
 function CartItem({item, cartItem}) {
 // item content all that related to this specific item (quantity and item'sTotal)
@@ -13,7 +14,9 @@ function CartItem({item, cartItem}) {
         <div className="cart-item round container">
             {cartItem &&
                 <div className="cart-item-content container">
-                <img width="40" height="auto" src={cartItem.image} alt={cartItem.title}/>
+                    <div className="image-cart">
+                        <ImagePlaceHolder imageUrl={cartItem.image} alt={cartItem.name}/>
+                    </div>
                 <p>{cartItem.title}</p>
                 <button className="icon-button" onClick={() => removeFromCart({id: cartItem.id, acTy: 'all'})}><GrClose/></button>
             </div>

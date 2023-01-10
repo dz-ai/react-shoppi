@@ -1,12 +1,19 @@
 .product {
-    background: antiquewhite;
     width: 300px;
-    margin: 10px;
-    padding: 40px;
+    border: 1px solid;
+    background: #8f7e70;
+    margin: 10px 0 10px 0;
+    text-align: center;
+    padding: 20px;
+}
+
+.product img {
+    border-radius: 5px;
 }
 
 .product h2 {
     color: black;
+    font-size: unset;
 }
 
 .read-more {
@@ -22,5 +29,17 @@
 
 .product button {
     background: #1635a9;
+}
+
+@media (max-width: 500px) {
+    .product {
+        width: 250px;
+    }
+
+    .product img {
+        max-height: 150px;
+        width: auto;
+        max-width: 200px;
+    }
 }
 
