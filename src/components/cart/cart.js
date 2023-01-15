@@ -54,11 +54,15 @@ function Cart({cartItems, total}) {
         }
     };
 
+
+
+
     return (
         <div className="container cart-wrapper">
 
             <header className="cart-header container">
                 <h3>Cart</h3>
+
                 <div className="container cart-header-buttons-wrapper">
 
                     <button className="cart-header-buttons button"
@@ -72,6 +76,7 @@ function Cart({cartItems, total}) {
                         {showSavedCarts ? 'current cart' : 'saved cart'}
                     </button>
                 </div>
+
                 <button className="icon-button" onClick={() => showCartFun()}>
                     <GrClose/>
                 </button>

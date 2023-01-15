@@ -7,8 +7,11 @@ const ImagePlaceHolder = ({imageUrl, alt}) => {
     const newImage = imageUrl.replace("***", process.env.REACT_APP_IMAGEKIT_KEY);
 
     return (
-        <>
-            <img
+        <div className="image-container">
+
+
+        <img
+                className="place-holder"
                 style={{display: loading ? 'block' : 'none'}}
                 src="https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"
                 width="100%"
@@ -17,6 +20,7 @@ const ImagePlaceHolder = ({imageUrl, alt}) => {
             />
 
             <img
+                className="image"
                 style={{visibility: loading ? 'hidden' : 'visible'}}
                 src={newImage}
                 alt={alt}
@@ -25,7 +29,8 @@ const ImagePlaceHolder = ({imageUrl, alt}) => {
                 loading="lazy"
                 onLoad={() => setLoading(false)}
             />
-        </>
+
+        </div>
     );
 };
 

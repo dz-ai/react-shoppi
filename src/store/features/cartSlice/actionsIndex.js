@@ -19,8 +19,8 @@ export const useCartActions = () => {
         addToCart: ({id, quantity, price, itemsTotal}) =>
             dispatch(addToCart({id, quantity, price, itemsTotal})),
         removeFromCart: ({id, acTy}) => dispatch(removeFromCart({id, acTy})),
-        showCartFun: () => dispatch(showCart()),
-        orderZero: () => dispatch(orderZero()),
+        showCartFun: (term) => dispatch(showCart(term)),
+        orderZero: (all) => dispatch(orderZero(all)),
         setTotalPrice: () => dispatch(setTotalPrice()),
         cartCounter: () => dispatch(cartCounter()),
         submitOrder: (cartToOrder) => dispatch(submitOrder(cartToOrder)),

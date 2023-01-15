@@ -1,8 +1,11 @@
 import './submitOrderPageStyle.css'
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
+import {CreditCard} from "./credit-card";
+import {ShippingDetails} from "./shipping-details";
+
 
 function SubmitOrder() {
     const cart = useSelector(state => state.cart);
@@ -13,26 +16,85 @@ function SubmitOrder() {
 
     const [cardType, setCardType] = useState('visa');
     const [cardNum, setCardNum] = useState('');
-    const [exDate, setExDate] = useState('');
-    const [threeNum, setThreeNum] = useState('');
-    const [message, setMessage] = useState(false);
+    const [expiryYear, setExpiryYear] = useState('');
+    const [expiryMonth, setExpiryMonth] = useState('');
+    const [cvc, setCvc] = useState('');
+
+
+    const [country, setCountry] = useState('');
+    const [city, setCity] = useState('');
+    const [street, setStreet] = useState('');
+    const [houseNumber, setHouseNumber] = useState('');
+    const [postalCode, setPostalCode] = useState('');
+
+    const [message, setMessage] = useState('');
+
+
+    const validDate = (testDate) => {
+        const currentYear = new Date().getFullYear().toString().substring(2, 4);
+        const currentMonth = new Date().getMonth() + 1;
+
+        let results;
+
+        if (
+            testDate.substring(0, 2) <= 12 &&
+            testDate.substring(0, 2) > 0 &&
+            testDate.substring(2, 4) >= currentYear
+        ) {
+            if (testDate.substring(2, 4) === currentYear && testDate.substring(0, 2) < currentMonth) {
+                results = false;
+            } else {
+                results = true;
+            }
+
+        } else {
+            results = false;
+        }
+
+        return results;
+    };
 
     const validCard = {
-        cardNum: /^\d{16}$/.test(cardNum),
-        exDate: /^\d{4}$/.test(exDate),
-        threeNum: /^\d{3}$/.test(threeNum),
-    }
+            cardNum: /^\d{16}$/.test(cardNum.replace(/\s/g, '')),
+            exDate: /^\d{4}$/.test(expiryMonth + expiryYear) && validDate(expiryMonth + expiryYear),
+            cvc: /^\d{3}$/.test(cvc),
+        };
+
+
     const handelSubmit = () => {
-        if (validCard.cardNum && validCard.exDate && validCard.threeNum) {
-            submitOrder({products: cart.cart, total: cart.total, creditCard:{cardType, cardNum, exDate, threeNum}});
+        let allShippingFields = [country, city, street, houseNumber, postalCode];
+
+        allShippingFields.forEach(element => {
+            allShippingFields = element !== '';
+        });
+
+        if (cart.total === 0) {
+            setMessage('You got no items in cart');
+            return;
+        } else if (!allShippingFields) {
+            setMessage('Please fill all Shipping fields');
+            return;
+        } else if (!validCard.cardNum) {
+            setMessage('invalid card number');
+            return;
+        } else if (!validCard.exDate) {
+            setMessage('invalid expire date');
+            return;
+        } else if (!validCard.cvc) {
+            setMessage('invalid CVC number');
+            return;
         } else {
-            setMessage(true)
+            submitOrder({
+                products: cart.cart,
+                total: cart.total,
+                creditCard: {cardType, cardNum, exDate: expiryYear + expiryMonth, cvc}
+            });
         }
     };
 
     const handelContinueShopping = () => {
-      orderZero('all');
-      navigate('/');
+        orderZero('all');
+        navigate('/');
     };
 
     useEffect(() => {
@@ -42,46 +104,42 @@ function SubmitOrder() {
 
     return (
         <>
-            {cart.orderId === 0 && <div className="container container-window">
+            {cart.orderId === 0 && <div className="submit-order-layout container">
+                <header className="container">
+                    <p className="total-summit-page-username">
+                        {user.username}: You have {cart.itemsCount} {cart.itemsCount > 1 ? 'items' : 'item'} in cart
+                    </p>
+                    <p className="total-summit-page">Total: {cart.total.toFixed(2)} $</p>
+                </header>
 
-                {message && <p className="message">please check to fill in the credit card fields correctly</p>}
-                {cart.message && <p className="message">{cart.message}</p>}
 
-                <p>{user.username}: You have {cart.itemsCount} {cart.itemsCount > 1 ? 'items' : 'item'} in cart</p>
-                <p>Total: {cart.total.toFixed(2)} $</p>
+                <section className="payment-and-address-section container">
 
-                <div className="payment-field card-type-select container">
-                    <label>credit card: </label>
-                    <select value={cardType} onChange={(event) => setCardType(event.target.value)}>
-                        <option value="visa">visa</option>
-                        <option value="master-card">master-card</option>
-                        <option value="american-express">american-express</option>
-                    </select>
-                </div>
+                    <ShippingDetails
+                        city={city}
+                        country={country}
+                        street={street}
+                        houseNumber={houseNumber}
+                        postalCode={postalCode}
+                        handleInputChange={{setCity, setCountry, setStreet, setHouseNumber, setPostalCode}}
+                    />
 
-                <div className="container payment-fields">
-                    <div className="payment-field container">
-                        <label>Card Number:</label>
-                        <input value={cardNum} onChange={(event) => setCardNum(event.target.value)}
-                               placeholder="card number"/>
-                    </div>
 
-                    <div className="payment-field container">
-                        <label>Expire Date:</label>
-                        <input value={exDate} onChange={(event) => setExDate(event.target.value)} placeholder="date"/>
-                    </div>
+                    <CreditCard
+                        cvc={cvc}
+                        number={cardNum}
+                        expiryYear={expiryYear}
+                        expiryMonth={expiryMonth}
+                        cardType={cardType}
+                        handleInputChange={{setCardType, setCardNum, setExpiryYear, setExpiryMonth, setCvc}}
+                    />
 
-                    <div className="payment-field container">
-                        <label>3 Numbers:</label>
-                        <input value={threeNum} onChange={(event) => setThreeNum(event.target.value)}
-                               placeholder="3 numbers on back card"/>
-                    </div>
+                </section>
 
-                </div>
+                {message !== '' && <p className="red-message">{message}</p>}
+                {cart.message && <p className="red-message">{cart.message}</p>}
 
-                <button className="button"
-                        onClick={handelSubmit}
-                        disabled={cart.cart.length === 0}>
+                <button className="button" onClick={handelSubmit}>
                     Buy New
                 </button>
             </div>
@@ -93,7 +151,7 @@ function SubmitOrder() {
                     <p>order num: {cart.orderId}</p>
                     <button className="button"
                             onClick={handelContinueShopping}>
-                            to continue shopping...
+                        to continue shopping...
                     </button>
                 </div>
             }

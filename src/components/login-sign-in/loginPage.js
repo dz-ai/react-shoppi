@@ -2,7 +2,7 @@ import './loginPageStyle.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {handleKeypress} from "../../utils/pressEnterHandle";
+import {handleKeypress} from "../../Utils-and-Hooks/pressEnterHandle";
 import {useUserActions} from "../../store/features/userSlice/actionsIndex";
 
 // This component serve as login and sign-in depend on which pageName it receives

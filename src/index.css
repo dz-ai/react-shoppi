@@ -41,7 +41,7 @@ body {
 }
 
 .button {
-    background: #af6559;
+    background: #ba2c15;
     color: white;
     border: none;
     border-radius: 10px;
@@ -66,7 +66,7 @@ body {
     height: fit-content;
 }
 
-.menu hr , button {
+.menu hr, button {
     margin: 0;
 }
 
@@ -110,10 +110,30 @@ svg {
 }
 
 hr {
-   width: 100%;
+    width: 100%;
 }
 
 p, div, button, input, select {
-        font-size: 1.011em;
-    }
+    font-size: 1.011em;
+}
+
+.red-message {
+    background: #f7a3a3;
+    padding: 5px;
+    border: 1px solid red;
+    border-radius: 10px;
+    color: red;
+    max-width: 250px;
+    text-align: center;
+}
+
+.image-container {
+    display: grid;
+}
+
+.place-holder, .image {
+    grid-column: 1;
+    grid-row: 1;
+}
+
 

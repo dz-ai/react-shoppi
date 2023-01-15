@@ -1,17 +1,62 @@
-.payment-fields {
+.submit-order-layout {
+    height: 100%;
+    background: #ffffff8f;
+    justify-content: start;
+    padding-bottom: 120px;
+}
+
+.submit-order-layout header {
+    height: 50px;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+    padding-top: 30px;
+}
+
+.total-summit-page-username {
+    background: #d1716c;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #3e16168a;
+}
+
+.total-summit-page {
+    background: #3baebd;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.payment-and-address-section {
+    flex-flow: row wrap;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 400px) {
+    .payment-and-address-section div {
+        width: 250px;
+        flex-direction: column;
+        align-items: start;
+    }
+
+   .submit-order-layout header  {
+        height: 120px;
+        flex-direction: column;
+    }
+}
+
+.submit-order-input-fields {
     background: white;
     margin: 15px;
     border: 1px solid #899ebd;
-    border-radius: 10px;
     padding: 20px;
 }
 
-.payment-fields * {
+.submit-order-input-fields * {
     margin: 5px;
 }
 
 
-.payment-field {
+.submit-order-input-field {
     flex-direction: row;
     justify-content: space-between;
 }
