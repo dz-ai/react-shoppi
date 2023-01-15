@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {useMediaQuery} from "react-responsive";
 import {useUserActions} from "../../store/features/userSlice/actionsIndex";
 
-function UserMenu({setShowUser, handleHomeClick}) {
+function UserMenu({setShowUser, setShowBurgerMenu}) {
     const isMobile = useMediaQuery({query: '(max-width: 670px)'});
     const navigate = useNavigate();
 
@@ -11,7 +11,8 @@ function UserMenu({setShowUser, handleHomeClick}) {
     const handelClick = (type) => {
 
         setShowUser(false);
-        isMobile && handleHomeClick('');
+        isMobile && setShowBurgerMenu(false);
+
         switch (type) {
             case 'login':
                 navigate('/login', {state: {name: 'Login'}});

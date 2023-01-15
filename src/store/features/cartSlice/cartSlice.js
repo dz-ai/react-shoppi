@@ -43,8 +43,12 @@ export const cartSlice = createSlice({
         setTotalPrice(state) {
             setTotalPriceReducer(state);
         },
-        showCart(state) {
-            state.showCart = !state.showCart;
+        showCart(state, action) {
+            if (action.payload) {
+                state.showCart = action.payload;
+            } else {
+                state.showCart = !state.showCart;
+            }
         },
         cartCounter(state) {
             cartCounterReducer(state);

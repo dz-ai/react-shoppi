@@ -4,9 +4,13 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useProductsActions} from "../../store/features/productsSlice/actionsIndex";
 import Masonry from 'react-masonry-css'
+import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
 
 function Products() {
     const productsState = useSelector(state => state.products);
+    const cartState = useSelector(state => state.cart)
+
+    const {orderZero} = useCartActions();
 
     const {fetchProducts} = useProductsActions();
 
@@ -14,6 +18,9 @@ function Products() {
 
     useEffect(() => {
         fetchProducts();
+        if (cartState.orderId !== 0) {
+            orderZero('all');
+        }
     }, []);
 
     useEffect(() => {
@@ -25,9 +32,10 @@ function Products() {
     }, [productsState]);
 
     const breakpoints = {
-        default: 3,
-        1100: 2,
-        700: 1,
+        default: 4,
+        1100: 3,
+        850: 2,
+        600: 1,
     }
 
     return (

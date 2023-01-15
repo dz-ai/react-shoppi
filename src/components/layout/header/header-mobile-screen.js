@@ -11,22 +11,14 @@ import {useEffect, useState} from "react";
 
 
 function HeaderMobileScreen(
-    {handelCartButton, showBurgerMenu, setShowBurgerMenu, setShowUser, showUser, setShowFilter}) {
+    {handleHomeButton, handelCartButton, showBurgerMenu, setShowBurgerMenu, setShowUser, showUser, setShowFilter, category}) {
 
-    const navigate = useNavigate();
     const cart = useSelector(state => state.cart);
     const username = useSelector(state => state.user.username);
     const isUserLog = (state => state.user.isLog);
 
-    const options = ["Select Category", "electronics", "jewelery", "men's clothing", "women's clothing"]
-    const [categoryValue, setCategoryValue] = useState(options[0]);
-
     const {categoryFilter} = useProductsActions();
-
-    const handleHomeClick = (type) => {
-            setShowBurgerMenu(false);
-            type === 'home' && navigate('/');
-    };
+    const {options, categoryValue, setCategoryValue} = category;
 
     useEffect(() => {
         setShowBurgerMenu(false);
@@ -62,7 +54,7 @@ function HeaderMobileScreen(
             {showBurgerMenu &&
                 <div className="menu container">
 
-                    <button className="menu-button" onClick={() => handleHomeClick('home')}>
+                    <button className="menu-button" onClick={handleHomeButton}>
                         Home
                     </button>
                     <hr/>
@@ -78,7 +70,7 @@ function HeaderMobileScreen(
                         Login/Logout
                         {showUser &&
                             <UserMenu setShowUser={setShowUser}
-                                      handleHomeClick={handleHomeClick}/>
+                                      setShowBurgerMenu={setShowBurgerMenu}/>
                         }
                     </button>
                     <hr/>

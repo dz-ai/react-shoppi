@@ -12,6 +12,7 @@ h2 {
 
 .products-wrapper {
     flex-direction: row;
+    padding-bottom: 50px;
 }
 
 .products h2 {
