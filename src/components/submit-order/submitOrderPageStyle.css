@@ -32,20 +32,30 @@
 }
 
 @media (max-width: 400px) {
-    .payment-and-address-section div {
-        width: 250px;
-        flex-direction: column;
-        align-items: start;
+    .submit-order-layout {
+        align-items: center;
     }
 
-   .submit-order-layout header  {
+    .submit-order-layout header {
         height: 120px;
         flex-direction: column;
+        max-width: 80%;
     }
 
-    .payment-and-address-section input {
-       max-width: 220px;
-   }
+    .submit-order-input-fields {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .submit-order-input-field {
+        width: 100%;
+    }
+
+    .submit-order-input-field input {
+        max-width: 100%;
+    }
 }
 
 .submit-order-input-fields {
@@ -61,7 +71,7 @@
 
 
 .submit-order-input-field {
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: space-between;
 }
 
