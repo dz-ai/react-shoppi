@@ -10,45 +10,55 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
     const optionShow = 'options-show';
     const optionHide = 'options-hide';
 
-    const [optionsShow, setOptionShow] = useState(optionHide);
+    const [optionsShowState, setOptionShowState] = useState(optionHide);
 
-    useOutClick(ref, null ,setOptionShow)
+    useOutClick(ref, null, setOptionShowState)
 
     const handleDropdown = () => {
-        if (optionsShow === optionHide) {
-            setOptionShow(optionShow);
+        if (optionsShowState === optionHide) {
+            setOptionShowState(optionShow);
         } else {
-            setOptionShow(optionHide);
+            setOptionShowState(optionHide);
         }
     };
 
     const handleOption = (currentCategory) => {
         setCategoryValue(currentCategory);
-        setOptionShow(optionHide);
+        setOptionShowState(optionHide);
     };
 
     return (
 
-            <div
-                ref={ref}
-                className={optionsShow !== optionShow ? "hover select container" : "select container"}
-                 onClick={handleDropdown}
-            >
-                {optionsShow === optionHide && <BsChevronDoubleDown className="icon"/>}
+        <div
+            ref={ref}
+            className={optionsShowState !== optionShow ? "hover select container" : "select container"}
+            onClick={handleDropdown}
+        >
+            {
+                optionsShowState === optionHide &&
+                <BsChevronDoubleDown
+                    className="icon"
+                />
+            }
+            {
+                optionsShowState === optionShow &&
+                <BsChevronDoubleUp
+                    className="icon"
+                />
+            }
 
-                {categoryValue}
-                <section className={optionsShow}>
-                    {options.map((category, index) =>
-                        <div
-                            key={category}
-                            className="option container"
-                            onClick={() => handleOption(category)}
-                        >
-                            {optionsShow === optionShow && index === 0 && <BsChevronDoubleUp className="icon"/>}
-                            {category}
-                        </div>)}
-                </section>
-            </div>
+            {categoryValue}
+            <section className={optionsShowState}>
+                {options.map((category) =>
+                    <div
+                        key={category}
+                        className="option container"
+                        onClick={() => handleOption(category)}
+                    >
+                        {category}
+                    </div>)}
+            </section>
+        </div>
 
     );
 }

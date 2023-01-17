@@ -3,7 +3,7 @@ import CartItem from "./cart-item";
 import {GrClose} from "react-icons/gr";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import SavedCartMenu from "./savedCartMenu";
 import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
 import {MdOutlineShoppingCart} from "react-icons/md";
