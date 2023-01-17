@@ -62,6 +62,9 @@ function SubmitOrder() {
 
 
     const handelSubmit = () => {
+
+        setMessage('');
+
         let allShippingFields = [country, city, street, houseNumber, postalCode];
 
         allShippingFields.forEach(element => {
@@ -70,19 +73,14 @@ function SubmitOrder() {
 
         if (cart.total === 0) {
             setMessage('You got no items in cart');
-            return;
         } else if (!allShippingFields) {
             setMessage('Please fill all Shipping fields');
-            return;
         } else if (!validCard.cardNum) {
             setMessage('invalid card number');
-            return;
         } else if (!validCard.exDate) {
             setMessage('invalid expire date');
-            return;
         } else if (!validCard.cvc) {
             setMessage('invalid CVC number');
-            return;
         } else {
             submitOrder({
                 products: cart.cart,

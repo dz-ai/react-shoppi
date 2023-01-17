@@ -37,25 +37,10 @@ function Header() {
         cartCounter();
     }, [cart.cart]);
 
-    const handelUserButton = () => {
-        if (cart.showCart) {
-            setShowUser(!showUser);
-            showCartFun();
-        } else {
-            setShowUser(!showUser);
-        }
-    };
-
     const handelCartButton = () => {
         if (cart.savedCarts.length > 0) {
             showCartFun();
-            return
         } else if (cart.cart.length > 0) {
-            showCartFun();
-            return
-        }
-        if (cart.cart.length > 0 && showUser) {
-            setShowUser(false);
             showCartFun();
         }
     };
@@ -81,7 +66,6 @@ function Header() {
                 <HeaderWideScreen
                     handleHomeButton={handleHomeButton}
                     handelCartButton={handelCartButton}
-                    handelUserButton={handelUserButton}
                     setShowUser={setShowUser}
                     showUser={showUser}
                     category={{options, categoryValue, setCategoryValue}}
@@ -101,6 +85,6 @@ function Header() {
                 />}
         </div>
     );
-};
+}
 
 export default Header;

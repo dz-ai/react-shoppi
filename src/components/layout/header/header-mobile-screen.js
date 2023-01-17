@@ -1,17 +1,23 @@
 import './headerStyles/headerMobileStyle.css';
-import {BiMenu} from "react-icons/bi";
-import {MdOutlineShoppingCart} from "react-icons/md";
 import {useSelector} from "react-redux";
 import Cart from "../../cart/cart";
-import UserMenu from "../../login-sign-in/user-menu";
-import {useNavigate} from "react-router-dom";
 import {useProductsActions} from "../../../store/features/productsSlice/actionsIndex";
-import Dropdown from "./dropdown";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {BurgerMenu} from "./burgerMenu";
 
 
 function HeaderMobileScreen(
-    {handleHomeButton, handelCartButton, showBurgerMenu, setShowBurgerMenu, setShowUser, showUser, setShowFilter, category}) {
+    {
+        handleHomeButton,
+        handelCartButton,
+        handelUserButton,
+        showBurgerMenu,
+        setShowBurgerMenu,
+        setShowUser,
+        showUser,
+        setShowFilter,
+        category
+    }) {
 
     const cart = useSelector(state => state.cart);
     const username = useSelector(state => state.user.username);
@@ -29,53 +35,25 @@ function HeaderMobileScreen(
     return (
         <>
             <div className="header-content-wrapper container">
-                <button onClick={handelCartButton}
-                        className="icon-button cart-toggle">
-                    {cart.cart.length > 0 && <div className="cart-counter round">{cart.itemsCount}</div>}
-                    <MdOutlineShoppingCart/>
-                </button>
+                <Cart
+                    cartItems={cart.cart}
+                    total={cart.total}
+                    handleCartButton={handelCartButton}
+                />
+                <BurgerMenu
+                    showBurgerMenu={showBurgerMenu}
+                    setShowBurgerMenu={setShowBurgerMenu}
+                    showUser={showUser}
+                    setShowUser={setShowUser}
+                    handleHomeButton={handleHomeButton}
+                    handelUserButton={handelUserButton}
+                    options={options}
+                    categoryValue={categoryValue}
+                    setCategoryValue={setCategoryValue}
+                />
 
-                {cart.showCart && cart.cart.length > 0
-                    ||
-                    cart.showCart && cart.savedCarts.length > 0 ?
-                        <Cart cartItems={cart.cart}
-                              total={cart.total}/> : null
-                }
-
-                <button className="icon-button-Header-burger"
-                        onClick={() => setShowBurgerMenu(!showBurgerMenu)}>
-                    <BiMenu/>
-                </button>
-
-                 {isUserLog && username && <div className="username container">{username[0].toUpperCase()}</div>}
+                {isUserLog && username && <div className="username container">{username[0].toUpperCase()}</div>}
             </div>
-
-
-            {showBurgerMenu &&
-                <div className="menu container">
-
-                    <button className="menu-button" onClick={handleHomeButton}>
-                        Home
-                    </button>
-                    <hr/>
-                            <Dropdown
-                                options={options}
-                                categoryValue={categoryValue}
-                                setCategoryValue={setCategoryValue}
-                            />
-                    <hr/>
-
-                    <button className="menu-button"
-                            onClick={() => setShowUser(!showUser)}>
-                        Login/Logout
-                        {showUser &&
-                            <UserMenu setShowUser={setShowUser}
-                                      setShowBurgerMenu={setShowBurgerMenu}/>
-                        }
-                    </button>
-                    <hr/>
-                </div>
-            }
         </>
     );
 }

@@ -1,13 +1,18 @@
 import {BsChevronDoubleDown, BsChevronDoubleUp} from "react-icons/bs";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import './headerStyles/dropdown.css';
+import {useOutClick} from "../../../Utils-and-Hooks/useOutClick";
 
 function Dropdown({options, categoryValue, setCategoryValue}) {
+
+    const ref = useRef();
 
     const optionShow = 'options-show';
     const optionHide = 'options-hide';
 
     const [optionsShow, setOptionShow] = useState(optionHide);
+
+    useOutClick(ref, null ,setOptionShow)
 
     const handleDropdown = () => {
         if (optionsShow === optionHide) {
@@ -23,9 +28,12 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
     };
 
     return (
-        <>
-            <div className={optionsShow !== optionShow ? "hover select container" : "select container"}
-                 onClick={handleDropdown}>
+
+            <div
+                ref={ref}
+                className={optionsShow !== optionShow ? "hover select container" : "select container"}
+                 onClick={handleDropdown}
+            >
                 {optionsShow === optionHide && <BsChevronDoubleDown className="icon"/>}
 
                 {categoryValue}
@@ -42,7 +50,6 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
                 </section>
             </div>
 
-        </>
     );
 }
 

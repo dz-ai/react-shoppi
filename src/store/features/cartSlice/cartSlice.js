@@ -44,7 +44,7 @@ export const cartSlice = createSlice({
             setTotalPriceReducer(state);
         },
         showCart(state, action) {
-            if (action.payload) {
+            if (action.payload === false) {
                 state.showCart = action.payload;
             } else {
                 state.showCart = !state.showCart;
