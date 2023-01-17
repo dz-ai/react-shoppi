@@ -1,5 +1,3 @@
-import {MdOutlineShoppingCart} from "react-icons/md";
-import {BiUser} from "react-icons/bi";
 import UserMenu from "../../login-sign-in/user-menu";
 import Cart from "../../cart/cart";
 import {useSelector} from "react-redux";
@@ -10,7 +8,6 @@ import Dropdown from "./dropdown";
 function HeaderWideScreen({
                               handleHomeButton,
                               handelCartButton,
-                              handelUserButton,
                               showUser,
                               setShowUser,
                               category
@@ -35,7 +32,9 @@ function HeaderWideScreen({
     return (
         <>
             <div className="header-content-wrapper container">
+
                 <nav onClick={handleHomeButton} className="button navButton">Home</nav>
+
                 <div style={{width: "200px", marginLeft: "5px"}}>
                     <Dropdown
                         options={options}
@@ -43,36 +42,20 @@ function HeaderWideScreen({
                         setCategoryValue={setCategoryValue}
                     />
                 </div>
-                <button onClick={handelCartButton}
-                        className="icon-button cart-toggle">
-                    {cart.cart.length > 0 && <div className="cart-counter round">{cart.itemsCount}</div>}
-                    <MdOutlineShoppingCart/>
-                </button>
 
-                <div>
-                    <button className="user-button icon-button"
-                            onClick={handelUserButton}>
-                        <BiUser/>
-                    </button>
+                <Cart
+                    cartItems={cart.cart}
+                    total={cart.total}
+                    handleCartButton={handelCartButton}
+                />
 
-                    {
-                        showUser &&
-                        <UserMenu setShowUser={setShowUser}/>
-                    }
 
-                    {
-                        cart.showCart && cart.cart.length > 0
-                        ||
-                        cart.showCart && cart.savedCarts.length > 0 ?
-                            <Cart
-                                cartItems={cart.cart}
-                                total={cart.total}
-                            />
-                            :
-                            null
-                    }
 
-                </div>
+                        <UserMenu
+                            showUser={showUser}
+                            setShowUser={setShowUser}
+                        />
+
                 {isUserLog && username && <div className="username container">{username[0].toUpperCase()}</div>}
             </div>
         </>

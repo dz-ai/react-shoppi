@@ -7,6 +7,7 @@ export const useUserActions = () => {
     const [actions] = useState({
         /* reducers */
         logOutUser: () => dispatch(logOutUser()),
+
         /* extraReducers */
         signUser: (user) => dispatch(signUser(user)),
         logUser: (user) => dispatch(logUser(user)),

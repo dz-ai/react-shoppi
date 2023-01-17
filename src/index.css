@@ -66,6 +66,10 @@ body {
     height: fit-content;
 }
 
+.menu div {
+    width: 100%;
+}
+
 .menu hr, button {
     margin: 0;
 }

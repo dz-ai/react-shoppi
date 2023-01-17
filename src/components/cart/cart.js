@@ -3,11 +3,13 @@ import CartItem from "./cart-item";
 import {GrClose} from "react-icons/gr";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import SavedCartMenu from "./savedCartMenu";
 import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
+import {MdOutlineShoppingCart} from "react-icons/md";
+import {useOutClick} from "../../Utils-and-Hooks/useOutClick";
 
-function Cart({cartItems, total}) {
+function Cart({cartItems, total, handleCartButton}) {
     const products = useSelector(state => state.products.products);
     const isUserLog = useSelector(state => state.user.isLog);
     const cart = useSelector(state => state.cart);
@@ -18,6 +20,10 @@ function Cart({cartItems, total}) {
     const [showSavedCarts, setShowSavedCarts] = useState(false);
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
+
+    const ref = useRef();
+
+    useOutClick(ref, showCartFun);
 
     const handelSaveCart = () => {
         if (isUserLog) {
@@ -58,6 +64,18 @@ function Cart({cartItems, total}) {
 
 
     return (
+        <div ref={ref}>
+
+            <button onClick={handleCartButton}
+                    className="icon-button cart-toggle">
+                {cart.cart.length > 0 && <div className="cart-counter round">{cart.itemsCount}</div>}
+                <MdOutlineShoppingCart/>
+            </button>
+
+        {
+            cart.showCart && cart.cart.length > 0
+            ||
+            cart.showCart && cart.savedCarts.length > 0 ?
         <div className="container cart-wrapper">
 
             <header className="cart-header container">
@@ -115,6 +133,10 @@ function Cart({cartItems, total}) {
                 <h4>{message}</h4>
                 <button onClick={() => setShowMessage(false)}>OK</button>
             </div>}
+        </div>
+                :
+                null
+        }
         </div>
     );
 }

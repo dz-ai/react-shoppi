@@ -42,6 +42,10 @@
         height: 120px;
         flex-direction: column;
     }
+
+    .payment-and-address-section input {
+       max-width: 220px;
+   }
 }
 
 .submit-order-input-fields {
