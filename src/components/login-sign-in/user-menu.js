@@ -5,7 +5,7 @@ import {BiUser} from "react-icons/bi";
 import {useOutClick} from "../../Utils-and-Hooks/useOutClick";
 import {useRef} from "react";
 
-function UserMenu({setShowUser, setShowBurgerMenu, showUser, handelUserButton}) {
+function UserMenu({setShowUser, setShowBurgerMenu, showUser}) {
     const isMobile = useMediaQuery({query: '(max-width: 670px)'});
     const navigate = useNavigate();
     const ref = useRef();
@@ -24,7 +24,7 @@ function UserMenu({setShowUser, setShowBurgerMenu, showUser, handelUserButton}) 
                 navigate('/login', {state: {name: 'Login'}});
                 break
             case 'sign-in':
-                navigate('/login', {state: {name: 'Sign-in'}});
+                navigate('/sign-in', {state: {name: 'Sign-in'}});
                 break
             case 'logout':
                 logOutUser();

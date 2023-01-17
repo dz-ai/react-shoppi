@@ -24,11 +24,16 @@ export const clearSavedCartBuilder = (builder) => {
 
 export const submitOrderBuilder = (builder) => {
     builder.addCase(submitOrder.fulfilled, (state, action) => {
+        state.pending = false;
         state.message = action.payload.message;
         state.orderId = action.payload.orderId;
         state.cart = [];
     });
-    builder.addCase(submitOrder.rejected, (state, action) => {
+    builder.addCase(submitOrder.pending, (state) => {
+        state.pending = true;
+    });
+    builder.addCase(submitOrder.rejected, (state) => {
+        state.pending = false;
         state.message = 'credit card rejected please contact the credit company';
-    })
+    });
 }

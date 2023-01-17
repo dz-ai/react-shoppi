@@ -20,6 +20,7 @@ function Content() {
             <Routes>
                 <Route path="/" element={<Products/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/sign-in" element={<LoginPage/>}/>
                 <Route path="/submit" element={<SubmitOrder/>}/>
             </Routes>
         </div>

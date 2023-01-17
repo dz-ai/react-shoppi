@@ -1,10 +1,11 @@
 import './submitOrderPageStyle.css'
 import {useSelector} from "react-redux";
-import {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import { useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useCartActions} from "../../store/features/cartSlice/actionsIndex";
 import {CreditCard} from "./credit-card";
 import {ShippingDetails} from "./shipping-details";
+import {PendingButton} from "../pendingButton";
 
 
 function SubmitOrder() {
@@ -28,7 +29,6 @@ function SubmitOrder() {
     const [postalCode, setPostalCode] = useState('');
 
     const [message, setMessage] = useState('');
-
 
     const validDate = (testDate) => {
         const currentYear = new Date().getFullYear().toString().substring(2, 4);
@@ -62,7 +62,6 @@ function SubmitOrder() {
 
 
     const handelSubmit = () => {
-
         setMessage('');
 
         let allShippingFields = [country, city, street, houseNumber, postalCode];
@@ -85,7 +84,8 @@ function SubmitOrder() {
             submitOrder({
                 products: cart.cart,
                 total: cart.total,
-                creditCard: {cardType, cardNum, exDate: expiryYear + expiryMonth, cvc}
+                creditCard: {cardType, cardNum, exDate: expiryYear + expiryMonth, cvc},
+                shippingAddress: {country, city, street, houseNumber, postalCode},
             });
         }
     };
@@ -99,6 +99,11 @@ function SubmitOrder() {
         setTotalPrice();
         cartCounter();
     }, [cart.cart]);
+
+    useEffect(() => {
+        setMessage(cart.message)
+    }, [cart.message]);
+
 
     return (
         <>
@@ -135,11 +140,12 @@ function SubmitOrder() {
                 </section>
 
                 {message !== '' && <p className="red-message">{message}</p>}
-                {cart.message && <p className="red-message">{cart.message}</p>}
 
-                <button className="button" onClick={handelSubmit}>
-                    Buy New
-                </button>
+                <PendingButton
+                    buttonText="Buy Now"
+                    onClick={handelSubmit}
+                    pendingTerm={cart.pending}
+                />
             </div>
             }
 
@@ -149,7 +155,7 @@ function SubmitOrder() {
                     <p>order num: {cart.orderId}</p>
                     <button className="button"
                             onClick={handelContinueShopping}>
-                        to continue shopping...
+                        Back to Home Page
                     </button>
                 </div>
             }
