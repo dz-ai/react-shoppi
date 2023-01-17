@@ -16,7 +16,8 @@ const initialState = {
     total: 0,
     message: '',
     orderId: 0,
-    savedCarts: []
+    savedCarts: [],
+    pending: false,
 }
 
 export const saveCart = saveCartThunk('cart/saveCart');

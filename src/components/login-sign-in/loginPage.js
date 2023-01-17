@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {handleKeypress} from "../../Utils-and-Hooks/pressEnterHandle";
 import {useUserActions} from "../../store/features/userSlice/actionsIndex";
+import {PendingButton} from "../pendingButton";
+import {checkUserFields} from "../../Utils-and-Hooks/checkUserFields";
 
 // This component serve as login and sign-in depend on which pageName it receives
 function Login() {
@@ -11,6 +13,7 @@ function Login() {
     const navigate = useNavigate();
     const userMessage = useSelector(state => state.user.message);
     const isUserLog = useSelector(state => state.user.isLog);
+    const pending = useSelector(state => state.user.pending);
 
     const {signUser, logUser, logOutUser} = useUserActions();
 
@@ -18,62 +21,100 @@ function Login() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [subClicked, setSubClicked] = useState(false);
 
-    // validForm is make sure all fields in form are filled correctly
-    const validForm = {
-        username: username.length > 3,
-        email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
-        password: /^\w{6,10}$/.test(password),
-    };
+    const [cameFromCart, setCameFromCart] = useState(false);
+    const [subClicked, setSubClicked] = useState(false);
+    const [subTrue, setSubTrue] = useState(false);
+
+    const green = 'green-message', red = 'red-message';
+    const [messageColor, setMessageColor] = useState(green);
+    const [message, setMessage] = useState(userMessage);
+
 
     const handleSubmit = (type) => {
-        setSubClicked(true);
+
+        setSubClicked(!subClicked);
+        setSubTrue(true);
+
+        const user = {username, email, password};
+
         if (type === 'Login') {
-            if (validForm.username && validForm.email && validForm.password) {
-                logUser({username, email, password});
+
+            if (checkUserFields(user, setMessageColor, setMessage)) {
+                logUser(user);
             }
         }
 
         if (type === 'Sign-in') {
-            if (validForm.username && validForm.email && validForm.password) {
-                signUser({username, email, password});
+            if (checkUserFields(user, setMessageColor, setMessage)) {
+                signUser(user);
             }
         }
     };
+
+
+    // useEffect(() => {
+    //     let namePage;
+    //     console.log(location.state)
+    //     if (!location.state) {
+    //         namePage = 'Sign-in';
+    //     } else {
+    //         namePage = location.state.name
+    //     }
+    //     setPageName(namePage)
+    // }, [location.state && location.state.name]);
+
     useEffect(() => {
-        let namePage;
-        if (!location.state) {
-            namePage = 'Sign-in';
+        if (location.pathname === '/login') {
+            setPageName('Login');
         } else {
-            namePage = location.state.name
+            setPageName('Sign-in');
         }
-        setPageName(namePage)
-    }, [location.state && location.state.name]);
+    }, [location.pathname]);
+
+    useEffect(() => {
+       if (location.state && location.state.id === '1') {
+           setCameFromCart(true);
+       }
+    }, [location.state]);
 
     //useEffect navigate to home page when isUserLoge and subClicked is true
     useEffect(() => {
-        if (isUserLog && subClicked && location.state && location.state.id !== '1') {
+        if (isUserLog && subTrue && !cameFromCart) {
             navigate('/');
+            setSubTrue(false);
         }
         if (!isUserLog && userMessage === 'not a signed user please sign in first (or check email spelling)') {
             setPageName('Sign-in');
+            navigate('/sign-in');
         }
         if (!isUserLog && userMessage === 'you are a signed user please login') {
             setPageName('Login');
+            navigate('/login');
         }
-        if (location.state && location.state.id === '1' && isUserLog) {
+        if (isUserLog && cameFromCart) {
             navigate('/submit');
         }
     }, [isUserLog, subClicked, userMessage]);
+
+    useEffect(() => {
+        if (userMessage !== 'please fill the form\nto sign/log in') {
+            setMessageColor(red);
+            setMessage(userMessage);
+        } else {
+            setMessageColor(green);
+            setMessage(userMessage);
+        }
+    }, [userMessage]);
 
 
     return (
         <div onKeyDown={(e) => handleKeypress(e, handleSubmit, pageName)}>
             {!isUserLog ?
                 <div className="container login">
-                    <p className="message">{userMessage}</p>
+
                     <h1>{pageName}</h1>
+
                     <input type="text"
                            placeholder="3 letters username"
                            onChange={(event) => setUsername(event.target.value)}
@@ -87,16 +128,24 @@ function Login() {
                            onChange={(event) => setPassword(event.target.value)}
                            value={password}/>
 
-                    <button className="button"
-                            onClick={() => handleSubmit(pageName)}>
-                        {pageName}
-                    </button>
+                    <p className={messageColor}>{message}</p>
+
+                    <PendingButton
+                        buttonText={pageName}
+                        pendingTerm={pending}
+                        onClick={handleSubmit}
+                        onClickArgs={[pageName]}
+                    />
+
                 </div>
                 :
                 <div className="container login">
                     <h3>{userMessage}</h3>
-                    <button className="button"
-                            onClick={() => logOutUser()}>Logout
+                    <button
+                        className="button"
+                        onClick={() => logOutUser()}
+                    >
+                        Logout
                     </button>
                 </div>
             }

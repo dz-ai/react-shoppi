@@ -121,6 +121,17 @@ p, div, button, input, select {
     font-size: 1.011em;
 }
 
+.green-message {
+    background: #a4ec92;
+    padding: 5px;
+    border: 1px solid #0f9d00;
+    border-radius: 10px;
+    color: #004108;
+    max-width: 250px;
+    white-space: pre;
+    text-align: center;
+}
+
 .red-message {
     background: #f7a3a3;
     padding: 5px;

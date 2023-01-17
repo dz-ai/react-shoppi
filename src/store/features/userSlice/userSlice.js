@@ -4,8 +4,9 @@ import {findUserBuilder, logUserBuilder, signUserBuilder} from "./builders";
 
 const initialState = {
     username: '',
-    message: 'please fill the form to sign/log in',
+    message: 'please fill the form\nto sign/log in',
     isLog: false,
+    pending: false,
 }
 
 export const signUser = signUserThunk('user/signUser');
@@ -26,7 +27,7 @@ export const userSlice = createSlice({
             state.isLog = false;
             state.username = '';
             localStorage.removeItem('token');
-            state.message = 'please fill the form to sign/log in';
+            state.message = 'please fill the form\nto sign/log in';
         },
     },
 });

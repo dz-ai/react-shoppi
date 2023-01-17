@@ -2,6 +2,7 @@ import {findUser, logUser, signUser} from "./userSlice";
 
 export const signUserBuilder = (builder) => {
     builder.addCase(signUser.fulfilled, (state, action) => {
+        state.pending = false;
         state.isLog = action.payload.isSign;
         state.message = action.payload.message;
         if (action.payload.token) {
@@ -9,14 +10,27 @@ export const signUserBuilder = (builder) => {
             state.username = action.payload.username;
         }
     });
+    builder.addCase(signUser.pending, (state) => {
+       state.pending = true;
+    });
+    builder.addCase(signUser.rejected, (state) => {
+       state.pending = false;
+    });
 }
 
 export const logUserBuilder = (builder) => {
     builder.addCase(logUser.fulfilled, (state, action) => {
+        state.pending = false;
         state.isLog = action.payload.isSign;
         state.message = action.payload.message;
         state.username = action.payload.username;
         action.payload.token && localStorage.setItem('token', action.payload.token);
+    });
+    builder.addCase(logUser.pending, (state) => {
+        state.pending = true;
+    });
+    builder.addCase(logUser.rejected, (state) => {
+        state.pending = false;
     });
 }
 
