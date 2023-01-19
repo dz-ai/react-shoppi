@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {findUser, logOutUser, logUser, signUser} from "./userSlice";
+import {findUser, logOutUser, logUser, signUser, resetMessage} from "./userSlice";
 import {useState} from "react";
 
 export const useUserActions = () => {
@@ -7,6 +7,7 @@ export const useUserActions = () => {
     const [actions] = useState({
         /* reducers */
         logOutUser: () => dispatch(logOutUser()),
+        resetMessage: () => dispatch(resetMessage()),
 
         /* extraReducers */
         signUser: (user) => dispatch(signUser(user)),

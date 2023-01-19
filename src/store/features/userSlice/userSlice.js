@@ -29,8 +29,11 @@ export const userSlice = createSlice({
             localStorage.removeItem('token');
             state.message = 'please fill the form\nto sign/log in';
         },
+        resetMessage(state) {
+            state.message = 'please fill the form\nto sign/log in';
+        },
     },
 });
 
-export const {logOutUser} = userSlice.actions;
+export const {logOutUser, resetMessage} = userSlice.actions;
 export default userSlice.reducer;
