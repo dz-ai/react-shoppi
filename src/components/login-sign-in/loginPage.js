@@ -15,7 +15,7 @@ function Login() {
     const isUserLog = useSelector(state => state.user.isLog);
     const pending = useSelector(state => state.user.pending);
 
-    const {signUser, logUser, logOutUser} = useUserActions();
+    const {signUser, logUser, logOutUser, resetMessage} = useUserActions();
 
     const [pageName, setPageName] = useState('');
     const [username, setUsername] = useState('');
@@ -52,18 +52,6 @@ function Login() {
         }
     };
 
-
-    // useEffect(() => {
-    //     let namePage;
-    //     console.log(location.state)
-    //     if (!location.state) {
-    //         namePage = 'Sign-in';
-    //     } else {
-    //         namePage = location.state.name
-    //     }
-    //     setPageName(namePage)
-    // }, [location.state && location.state.name]);
-
     useEffect(() => {
         if (location.pathname === '/login') {
             setPageName('Login');
@@ -73,9 +61,9 @@ function Login() {
     }, [location.pathname]);
 
     useEffect(() => {
-       if (location.state && location.state.id === '1') {
-           setCameFromCart(true);
-       }
+        if (location.state && location.state.id === '1') {
+            setCameFromCart(true);
+        }
     }, [location.state]);
 
     //useEffect navigate to home page when isUserLoge and subClicked is true
@@ -107,6 +95,16 @@ function Login() {
         }
     }, [userMessage]);
 
+
+    useEffect(() => {
+
+        return () => {
+            if (location.pathname !== '/login' || location.pathname !== '/sign-in') {
+                resetMessage();
+            }
+        }
+
+    }, []);
 
     return (
         <div onKeyDown={(e) => handleKeypress(e, handleSubmit, pageName)}>
