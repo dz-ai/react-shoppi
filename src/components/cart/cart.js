@@ -60,7 +60,8 @@ function Cart({cartItems, total, handleCartButton}) {
         }
     };
 
-
+    console.log(cart.cart.length)
+    console.log(cart.savedCarts.length)
 
 
     return (
@@ -75,7 +76,8 @@ function Cart({cartItems, total, handleCartButton}) {
         {
             cart.showCart && cart.cart.length > 0
             ||
-            cart.showCart && cart.savedCarts.length > 0 ?
+            cart.showCart && cart.savedCarts.length > 0
+                ?
         <div className="container cart-wrapper">
 
             <header className="cart-header container">
@@ -104,10 +106,15 @@ function Cart({cartItems, total, handleCartButton}) {
                 <div className="cart-list">
                     {
                       cartItems.map(item =>
+                          item.quantity > 0 ?
                         <CartItem
                             key={item.id}
                             item={item}
-                            cartItem={products.find(product => product.id === item.id)}/>)
+                            cartItem={products.find(product => product.id === item.id)}
+                        />
+                              :
+                              null
+                      )
                     }
             </div>}
 

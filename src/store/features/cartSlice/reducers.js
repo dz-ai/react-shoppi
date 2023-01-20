@@ -16,6 +16,12 @@ export const removeFromCartReducer = (state, action) => {
         const item = state.cart.find(item => item.id === action.payload.id);
         item.quantity--;
         item.itemsTotal = item.quantity * item.price;
+
+        if (item.quantity === 0) {
+            state.cart = [...state.cart.filter(filterItem => {
+                return filterItem.id !== item.id;
+            })];
+        }
     }
 }
 

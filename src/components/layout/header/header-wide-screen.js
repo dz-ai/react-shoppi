@@ -49,8 +49,6 @@ function HeaderWideScreen({
                     handleCartButton={handelCartButton}
                 />
 
-
-
                         <UserMenu
                             showUser={showUser}
                             setShowUser={setShowUser}
