@@ -4,6 +4,7 @@ export const useOutClick = (ref, setClose, dropdownOptions) => {
     useEffect(() => {
         const clickHandler = (e) => {
             if (ref.current && !ref.current.contains(e.target)) {
+                console.log('run')
                 setClose && setClose(false);
                 dropdownOptions && dropdownOptions('options-hide');
             }

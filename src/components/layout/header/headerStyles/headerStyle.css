@@ -42,15 +42,17 @@ margin: 5px;
 }
 
 .cart-counter {
-    width: 20px;
-    height: 20px;
-    background: #3baebd;
+    width: 25px;
+    height: 25px;
+    background: #53b542;
+    color: #1e0004;
     position: absolute;
-    right: -6px;
+    right: -7px;
     top: -7px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 12px;
 }
 
 .user-button {
