@@ -8,6 +8,10 @@
     padding: 0 15px;
 }
 
+.header h1:hover {
+    cursor: pointer;
+}
+
 .cart-toggle {
     position: relative;
     width: 55px;

@@ -20,10 +20,11 @@ function Cart({cartItems, total, handleCartButton}) {
     const [showSavedCarts, setShowSavedCarts] = useState(false);
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
+    const [removeEventListener, setRemoveEventListener] = useState(false);
 
-    const ref = useRef();
+    const ref = useRef(null);
 
-    useOutClick(ref, showCartFun);
+    useOutClick(ref, removeEventListener,  showCartFun, null);
 
     const handelSaveCart = () => {
         if (isUserLog) {
@@ -59,10 +60,6 @@ function Cart({cartItems, total, handleCartButton}) {
             showCartFun();
         }
     };
-
-    console.log(cart.cart.length)
-    console.log(cart.savedCarts.length)
-
 
     return (
         <div ref={ref}>
@@ -111,6 +108,7 @@ function Cart({cartItems, total, handleCartButton}) {
                             key={item.id}
                             item={item}
                             cartItem={products.find(product => product.id === item.id)}
+                            setRemoveEventListener={setRemoveEventListener}
                         />
                               :
                               null

@@ -60,7 +60,7 @@ function Header() {
 
     return (
         <div className="header container" ref={ref}>
-            <h1>Shoppi</h1>
+            <h1 onClick={() => navigate('/')}>Shoppi</h1>
 
             {!isMobile &&
                 <HeaderWideScreen
