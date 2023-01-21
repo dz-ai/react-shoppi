@@ -11,8 +11,9 @@ function UserMenu({setShowUser, setShowBurgerMenu, showUser}) {
     const ref = useRef();
 
     const {logOutUser} = useUserActions();
+//ref, removeEventListener,  setClose, dropdownOptions
 
-    useOutClick(ref, setShowUser)
+    useOutClick(ref, null,  setShowUser, null)
 
     const handelClick = (type) => {
 

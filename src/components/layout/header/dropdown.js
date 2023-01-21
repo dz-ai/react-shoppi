@@ -1,5 +1,5 @@
 import {BsChevronDoubleDown, BsChevronDoubleUp} from "react-icons/bs";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import './headerStyles/dropdown.css';
 import {useOutClick} from "../../../Utils-and-Hooks/useOutClick";
 
@@ -11,12 +11,18 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
     const optionHide = 'options-hide';
 
     const [optionsShowState, setOptionShowState] = useState(optionHide);
+    const [removeEventListener, setRemoveEventListener] = useState(false);
 
-    useOutClick(ref, null, setOptionShowState)
+    useOutClick(ref, removeEventListener, null, setOptionShowState)
 
     const handleDropdown = () => {
         if (optionsShowState === optionHide) {
+            setRemoveEventListener(true);
             setOptionShowState(optionShow);
+
+            setTimeout(() => {
+                setRemoveEventListener(false);
+            },100);
         } else {
             setOptionShowState(optionHide);
         }
@@ -38,6 +44,7 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
                 optionsShowState === optionHide &&
                 <BsChevronDoubleDown
                     className="icon"
+                    onClick={() => setOptionShowState(optionShow)}
                 />
             }
             {
@@ -48,6 +55,7 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
             }
 
             {categoryValue}
+
             <section className={optionsShowState}>
                 {options.map((category) =>
                     <div

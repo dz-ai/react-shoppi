@@ -18,7 +18,7 @@ export function BurgerMenu({
     ////// START THE FUN //////
     const ref = useRef();
 
-    useOutClick(ref, setShowBurgerMenu, null);
+    useOutClick(ref, null,  setShowBurgerMenu, null);
 
     return (
         <div ref={ref}>
