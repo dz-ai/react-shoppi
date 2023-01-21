@@ -86,5 +86,9 @@
     .product p {
         font-size: small;
     }
+
+    .product-button-left:hover, .product-button-right:hover {
+        background: #1635a9;
+    }
 }
 
