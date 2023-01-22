@@ -1,9 +1,13 @@
 import {BsChevronDoubleDown, BsChevronDoubleUp} from "react-icons/bs";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import './headerStyles/dropdown.css';
 import {useOutClick} from "../../../Utils-and-Hooks/useOutClick";
+import {useMediaQuery} from "react-responsive";
 
-function Dropdown({options, categoryValue, setCategoryValue}) {
+function Dropdown({options, categoryValue, setCategoryValue, removeEventListener, setRemoveEventListener}) {
+
+    const isMobile = useMediaQuery({query: '(max-width: 670px)'});
+
 
     const ref = useRef();
 
@@ -11,9 +15,8 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
     const optionHide = 'options-hide';
 
     const [optionsShowState, setOptionShowState] = useState(optionHide);
-    const [removeEventListener, setRemoveEventListener] = useState(false);
 
-    useOutClick(ref, removeEventListener, null, setOptionShowState)
+    useOutClick(ref, removeEventListener, null, setOptionShowState);
 
     const handleDropdown = () => {
         if (optionsShowState === optionHide) {
@@ -24,7 +27,12 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
                 setRemoveEventListener(false);
             },100);
         } else {
+             setRemoveEventListener(true);
             setOptionShowState(optionHide);
+
+            setTimeout(() => {
+                setRemoveEventListener(false);
+            },100);
         }
     };
 
@@ -36,7 +44,7 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
     return (
 
         <div
-            ref={ref}
+            ref={!isMobile ? ref : null}
             className={optionsShowState !== optionShow ? "hover select container" : "select container"}
             onClick={handleDropdown}
         >
@@ -51,6 +59,7 @@ function Dropdown({options, categoryValue, setCategoryValue}) {
                 optionsShowState === optionShow &&
                 <BsChevronDoubleUp
                     className="icon"
+                    onClick={() => setOptionShowState(optionHide)}
                 />
             }
 

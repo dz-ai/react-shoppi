@@ -1,7 +1,7 @@
 import {BiMenu} from "react-icons/bi";
 import Dropdown from "./dropdown";
 import UserMenu from "../../login-sign-in/user-menu";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {useOutClick} from "../../../Utils-and-Hooks/useOutClick";
 
 export function BurgerMenu({
@@ -16,9 +16,11 @@ export function BurgerMenu({
                                setCategoryValue
                            }) {
     ////// START THE FUN //////
+    const [removeEventListener, setRemoveEventListener] = useState(false);
+
     const ref = useRef();
 
-    useOutClick(ref, null,  setShowBurgerMenu, null);
+    useOutClick(ref, removeEventListener,  setShowBurgerMenu, null);
 
     return (
         <div ref={ref}>
@@ -40,6 +42,8 @@ export function BurgerMenu({
                         options={options}
                         categoryValue={categoryValue}
                         setCategoryValue={setCategoryValue}
+                        removeEventListener={null}
+                        setRemoveEventListener={setRemoveEventListener}
                     />
                     <hr/>
 
