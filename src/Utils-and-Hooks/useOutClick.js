@@ -2,8 +2,8 @@ import {useEffect} from "react";
 
 export const useOutClick = (ref, removeEventListener,  setClose, dropdownOptions) => {
     useEffect(() => {
-
         const clickHandler = (e) => {
+
             if (removeEventListener) {
                 return;
             }

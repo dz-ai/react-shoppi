@@ -1,7 +1,7 @@
 import UserMenu from "../../login-sign-in/user-menu";
 import Cart from "../../cart/cart";
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useProductsActions} from "../../../store/features/productsSlice/actionsIndex";
 import Dropdown from "./dropdown";
 
@@ -19,6 +19,8 @@ function HeaderWideScreen({
 
     const {categoryFilter} = useProductsActions();
     const {options, categoryValue, setCategoryValue} = category;
+
+    const [removeEventListener, setRemoveEventListener] = useState(false);
 
     useEffect(() => {
         categoryFilter(products.category);
@@ -40,6 +42,8 @@ function HeaderWideScreen({
                         options={options}
                         categoryValue={categoryValue}
                         setCategoryValue={setCategoryValue}
+                        removeEventListener={removeEventListener}
+                        setRemoveEventListener={setRemoveEventListener}
                     />
                 </div>
 
